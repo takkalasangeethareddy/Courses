@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-13 15:09:25</sys_created_on>
+        <sys_id>bddd804593113110f7c6921354891849</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_learning_course_course.sn_learning_course.course_user</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_security_acl display_value="sn_learning_course_course">39dd804593113110f7c6921354891846</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_bddd804593113110f7c6921354891849</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-13 15:09:25</sys_updated_on>
+        <sys_user_role display_value="sn_learning_course.course_user" name="sn_learning_course.course_user">33be9f3c93153110f7c692135489183f</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_security_acl_role_bddd804593113110f7c6921354891849</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-13 15:09:25</sys_created_on><sys_id>bddd804593113110f7c6921354891849</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sn_learning_course_course.sn_learning_course.course_user</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_security_acl display_value="sn_learning_course_course">39dd804593113110f7c6921354891846</sys_security_acl><sys_update_name>sys_security_acl_role_bddd804593113110f7c6921354891849</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-13 15:09:25</sys_updated_on><sys_user_role display_value="sn_learning_course.course_user" name="sn_learning_course.course_user">33be9f3c93153110f7c692135489183f</sys_user_role><transaction_id/></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>2001333396</payload_hash>
+        <record_name>sn_learning_course_course.sn_learning_course.course_user</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-13 15:09:25</sys_created_on>
+        <sys_id>3ddd804593113110f7c692135489184c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18a8f1705f90000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-13 15:09:25</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>71dd80450b113110e9f7deeb6a3c174c</update_guid>
+        <update_guid_history>71dd80450b113110e9f7deeb6a3c174c:2001333396</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="sn_learning_course_course.sn_learning_course.course_user">8fe8870193d13110f7c69213548918df</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 04:46:47</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>07e6c962890a450082f809257a2a53c4</sys_id>
+        <sys_metadata>bddd804593113110f7c6921354891849</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_learning_course_course.sn_learning_course.course_user</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent display_value="sn_learning_course_course">39dd804593113110f7c6921354891846</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_bddd804593113110f7c6921354891849</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_bddd804593113110f7c6921354891849">3ddd804593113110f7c692135489184c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 04:46:47</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

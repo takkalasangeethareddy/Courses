@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, $timeout, i18n, $rootScope, mhSkillMatrixService) {
+
+	var c = this;
+	c.filterPills = [];
+	c.expandRequiredSkills = false;
+	c.expandAdditionalSkills = false;
+	c.modifiedFilters = {
+		"skills": new Set(),
+		"team_members": new Set()
+	};
+	c.clearLabel = i18n.getMessage("Clear {0}");
+	c.toggleFlyout = false;
+	c.isSearching = false;
+	c.limit = 20;
+	c.searchCharLimit = 3;
+
+	c.filterData = [{
+		"filterSelectedCount": 0,
+		"totalSelected": 0,
+		"title": i18n.getMessage("Skills"),
+		"showFilterSection": true,
+		"showMore": true,
+		"filterDisplayCount": 0,
+		"isSearchable": true,
+		"filterSections": [{
+			"filterSectionId": "required_skills",
+			"selected": false,
+			"sectionSelectedCount": 0,
+			"limit": c.limit,
+			"displayCount": 0,
+			"filterOptions": [],
+			"title": i18n.getMessage("Required skills")
+		},
+		{
+			"filterSectionId": "additional_skills",
+			"selected": false,
+			"sectionSelectedCount": 0,
+			"limit": c.limit,
+			"displayCount": 0,
+			"filterOptions": [],
+			"title": i18n.getMessage("Additional skills")
+		}
+		],
+		"filterId": "skills"
+	},
+	{
+		"filterSelectedCount": 0,
+		"totalSelected": 0,
+		"title": i18n.getMessage("Team members"),
+		"filterSections": [{
+			"filterSectionId": "reportees",
+			"filterOptions": [],
+		}],
+		"filterId": "team_members"
+	}
+	];
+
+    function initFilters() {
+        var options = mhSkillMatrixService.getFilterOptions();
+        updateFilterOptions(options);
+    }
+
+    var filterOptionsChangeEvent = mhSkillMatrixService.getFilterOptionsChangeEvent();
+
+    var filterOptionsChangeEventListener = $rootScope.$on(filterOptionsChangeEvent, function(event, data) {
+        c.clearAllFilters();
+        updateFilterOptions(data);
+    });
+
+    function updateFilterOptions(options) {
+        var employees = options['employees'];
+        var skills = options['skills'];
+        var filteredEmployees = c.data.allReportees.filter(function(reportee) {
+            return _.includes(employees, reportee.id);
+        });
+        setFilterOptions('skills', 'required_skills', skills['requiredSkills']);
+        setFilterOptions('skills', 'additional_skills', skills['additionalSkills']);
+        setFilterOptions('team_members', 'reportees', filteredEmployees);
+    }
+
+    $scope.$on('$destroy', function() {
+        filterOptionsChangeEventListener();
+    });
+
+	function setFilterOptions(filterId, filterSectionId, options) {
+		if (_.isEmpty(options))
+			return;
+
+		_.forEach(options, function (eachOption) {
+			eachOption['selected'] = false;
+			eachOption['display'] = false;
+		});
+
+		var filter = _.find(c.filterData, _.matchesProperty('filterId', filterId));
+
+		if (!_.isEmpty(filter)) {
+			var filterSection = _.find(filter.filterSections, _.matchesProperty('filterSectionId', filterSectionId));
+			if (!_.isEmpty(filterSection))
+				filterSection.filterOptions = options;
+		}
+	}
+	c.toggleAccordion = function (filterSection) {
+		if (filterSection == 'required_skills')
+			c.expandRequiredSkills = !c.expandRequiredSkills;
+		else
+			c.expandAdditionalSkills = !c.expandAdditionalSkills;
+	}
+
+	c.onFilterSectionValueChange = function (filter, filterSection) {
+		filter.filterSelectedCount -= filterSection.sectionSelectedCount;
+		filterSection.filterOptions.forEach(function (filterOption) {
+			filterSection.sectionSelectedCount = filterSection.selected ? filterSection.filterOptions.length : 0;
+			if (filterSection.selected != filterOption.selected) {
+				filterOption.selected = filterSection.selected;
+				updateModifiedFilters(filter, filterOption);
+			}
+		});
+		filter.filterSelectedCount += filterSection.sectionSelectedCount;
+	}
+
+	c.onFilterValueChange = function (filter, filterSection, filterOption) {
+		var option = document.getElementById('option-checkbox-' + filterOption.id);
+		if (option.checked) {
+			filterSection.sectionSelectedCount++;
+			filter.filterSelectedCount++;
+		}
+		else {
+			filterSection.sectionSelectedCount--;
+			filter.filterSelectedCount--;
+		}
+		filterSection.selected = filterSection.sectionSelectedCount >= 0;
+		updateModifiedFilters(filter, filterOption);
+	};
+
+	c.applyFilter = function (filter) {
+		$('#fieldset-' + filter.filterId).removeClass('open');
+		filter.totalSelected = filter.filterSelectedCount;
+		c.expandRequiredSkills = false;
+		c.expandAdditionalSkills = false;
+		c.modifiedFilters[filter.filterId].clear();
+		addFilterPills(filter);
+		resetSearch();
+		mhSkillMatrixService.applyFilter(c.filterPills);
+	};
+
+	c.applyFilterFlyout = function () {
+		$timeout(function () {
+			c.filterData.forEach(function (filter) {
+				filter.totalSelected = filter.filterSelectedCount;
+				c.modifiedFilters[filter.filterId].clear();
+				addFilterPills(filter);
+				mhSkillMatrixService.applyFilter(c.filterPills);
+			});
+			resetSearch();
+		}, 0);
+	}
+
+	c.clearFilterFlyout = function () {
+		c.filterData.forEach(function (filter) {
+			c.clearFilterGroup(filter);
+		});
+	}
+
+	c.clearFilterGroup = function (filter) {
+		filter.filterSections.forEach(function (filterSection) {
+			filterSection.sectionSelectedCount = 0;
+			filterSection.selected = false;
+			filterSection.filterOptions.forEach(function (filterOption) {
+				if (filterOption.selected) {
+					filterOption.selected = false;
+					updateModifiedFilters(filter, filterOption);
+				}
+			});
+		});
+		filter.filterSelectedCount = 0;
+	};
+
+	c.clearPill = function (filterOption) {
+		updateFilterPills(filterOption);
+		updateFilterModel(filterOption);
+		mhSkillMatrixService.applyFilter(c.filterPills);
+	};
+
+	function updateFilterPills(delPill) {
+		c.filterPills = c.filterPills.filter(function (pill) {
+			return !(delPill.id === pill.id && delPill.sourceId === pill.sourceId);
+		});
+	}
+
+	function updateFilterModel(clearedPill) {
+		var filter = _.find(c.filterData, _.matchesProperty('filterId', clearedPill.groupId));
+		var filterSection = _.find(filter.filterSections, _.matchesProperty('filterSectionId', clearedPill.sourceId));
+		filterSection.filterOptions.forEach(function (filterOption) {
+			if (filterOption.id === clearedPill.id) {
+				filterOption.selected = false;
+				filter.filterSelectedCount--;
+				filter.totalSelected--;
+				filterSection.sectionSelectedCount--;
+			}
+		});
+	}
+
+	c.checkIfFilterAlreadyAdded = function (filterId, sourceId) {
+		var filterPills = c.filterPills;
+		var filterPillsLen = filterPills.length;
+		if (filterPillsLen.length === 0)
+			return false;
+		for (var pIdx = 0; pIdx < filterPillsLen; pIdx++)
+			if (filterPills[pIdx].id === filterId && filterPills[pIdx].sourceId === sourceId)
+				return true;
+		return false;
+	};
+
+	c.clearAllFilters = function () {
+		c.filterPills.forEach(function (deletedPill) {
+			c.clearPill(deletedPill);
+		});
+		c.filterData.forEach(function (filter) {
+			filter.filterSections.forEach(function (filterSection) {
+				filterSection.selected = false;
+			});
+		});
+	}
+
+	c.submitSearch = function (filter) {
+		var searchText = c.searchTerm.toLowerCase();
+		filter.filterDisplayCount = 0;
+		filter.filterSections.forEach(function (filterSection) {
+			filterSection.displayCount = 0;
+		});
+		if (searchText) {
+			c.isSearching = true;
+			if (searchText.length >= c.searchCharLimit) {
+				filter.filterSections.forEach(function (filterSection) {
+					filterSection.filterOptions.forEach(function (filterOption) {
+						filterOption.display = false;
+						if (filterOption.name.toLowerCase().indexOf(searchText) > -1) {
+							filterOption.display = true;
+							filterSection.displayCount++;
+						}
+					});
+					filter.filterDisplayCount += filterSection.displayCount;
+				});
+			}
+		}
+		else
+			c.isSearching = false;
+	}
+
+	c.disableApply = function () {
+		var modifiedCount = c.modifiedFilters["skills"].size + c.modifiedFilters['team_members'].size;
+		return modifiedCount == 0;
+	}
+
+	c.showMore = function (filterSection) {
+		filterSection.limit += c.limit;
+	}
+
+	c.showLess = function (filterSection) {
+		filterSection.limit = c.limit;
+	}
+
+	c.disableCancel = function () {
+		var totalSelectedCount = 0;
+		c.filterData.forEach(function (filter) {
+			totalSelectedCount += filter.filterSelectedCount;
+		});
+		return totalSelectedCount == 0;
+	}
+
+	function updateFilterPills(delPill) {
+		c.filterPills = c.filterPills.filter(function (pill) {
+			return !(delPill.id === pill.id && delPill.sourceId === pill.sourceId);
+		});
+	}
+
+	function addFilterPills(filter) {
+		var deltaFilters = [];
+		var groupId = filter.filterId;
+		filter.filterSections.forEach(function (filterSection) {
+			var sourceId = filterSection.filterSectionId;
+			filterSection.filterOptions.forEach(function (filter) {
+				var filterAdded = c.checkIfFilterAlreadyAdded(filter.id, sourceId);
+				if (!filterAdded && filter.selected)
+					c.filterPills.push({
+						id: filter.id,
+						name: filter.name,
+						groupId: groupId,
+						sourceId: sourceId,
+						clearLabel: i18n.format(c.clearLabel, filter.name)
+					});
+				else if (filterAdded && !filter.selected)
+					deltaFilters.push({
+						id: filter.id,
+						sourceId: sourceId
+					});
+			});
+		});
+		removeUnCheckedFilters(deltaFilters);
+	}
+
+	function removeUnCheckedFilters(filters) {
+		var filtersLength = filters.length;
+		c.filterPills = c.filterPills.filter(function (pill) {
+			for (var fIdx = 0; fIdx < filtersLength; fIdx++) {
+				if (filters[fIdx].id === pill.id && filters[fIdx].sourceId === pill.sourceId)
+					return false;
+			}
+			return true;
+		});
+	}
+
+    initFilters();
+	function updateModifiedFilters(filter, filterOption) {
+		var filterId = filter.filterId;
+		if (c.modifiedFilters[filterId].has(filterOption.id))
+			c.modifiedFilters[filterId].delete(filterOption.id);
+		else
+			c.modifiedFilters[filterId].add(filterOption.id);
+	}
+
+	function resetSearch() {
+		c.isSearching = false;
+		c.searchTerm = null;
+	}
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>$label-primary-bg: #D1D2EE !default;&#13;
+$badge-bg: #656E81 !default;&#13;
+$panel-default-text: #181A1F !default;&#13;
+$border-primary: #8790A1 !default;&#13;
+$border-tertiary: #DADDE2 !default;&#13;
+$border-secondary: #ACB2BE !default;&#13;
+$brand-primary: #4F52BD !default;&#13;
+$background-primary: #FFFFFF !default;&#13;
+$text-white: #FFFFFF !default;&#13;
+$text-muted: #656E81 !default;&#13;
+$text-primary: #181A1F !default;&#13;
+$font-size-xs: 12px !default;&#13;
+$font-size-small: 14px !default;&#13;
+$font-size-lg: 16px !default;&#13;
+$sp-space--border: 1px !default;&#13;
+$sp-space--xxs: 2px !default;&#13;
+$sp-space--xs: 4px !default;&#13;
+$sp-space--margin: 6px !default;&#13;
+$sp-space--sm: 8px !default;&#13;
+$sp-space--accordion: 11px !default;&#13;
+$sp-space--md: 12px !default;&#13;
+$sp-space--lg: 16px !default;&#13;
+$sp-space--xl: 24px !default;&#13;
+$sp-space-xxl: 36px !default;&#13;
+$sp-space--dropdown: 300px !default;&#13;
+$sp-space--grid: 414px;&#13;
+$border: #D3D6DC !default;&#13;
+$sp-space--close: 6px !default;&#13;
+$close-color: var(--special-close-color-default, rgba(0, 0, 0, 0.70));&#13;
+$checkbox-icon-size: 10px;&#13;
+$icon-line-height: 16px;&#13;
+$filter-content-margin: 20px !default;&#13;
+$filter-skill-label-width: 152px !default;&#13;
+$filter-pill-border: 1px !default;&#13;
+$filter-pill-height: 68px !default;&#13;
+&#13;
+/* Common styles */&#13;
+.btn.btn-link:disabled {&#13;
+	border: none;&#13;
+}&#13;
+&#13;
+.display-flex {&#13;
+	display: flex;&#13;
+}&#13;
+&#13;
+.space-between {&#13;
+	justify-content: space-between;&#13;
+	align-items: center;&#13;
+}&#13;
+&#13;
+.align-left {&#13;
+	text-align: left;&#13;
+}&#13;
+&#13;
+.align-right {&#13;
+	text-align: right;&#13;
+}&#13;
+&#13;
+input[type="checkbox"] {&#13;
+	accent-color: $brand-primary;&#13;
+}&#13;
+&#13;
+.pointer {&#13;
+	cursor: pointer;&#13;
+}&#13;
+&#13;
+.mg-bt-lg {&#13;
+	margin-bottom: $sp-space--lg;&#13;
+}&#13;
+&#13;
+#hr-required_skills {&#13;
+	margin-bottom: $sp-space--lg;&#13;
+}&#13;
+&#13;
+.pd-initial {&#13;
+	padding: initial !important;&#13;
+}&#13;
+&#13;
+/* filter checkbox styles */&#13;
+#filter-content-skills {&#13;
+	margin-bottom: 0px;&#13;
+	margin-left: $filter-content-margin + $sp-space--xl;&#13;
+}&#13;
+&#13;
+.search-list {&#13;
+	margin-left: 0;&#13;
+}&#13;
+&#13;
+.default-list-group {&#13;
+	position: relative;&#13;
+	margin-bottom: 0;&#13;
+	.filter-checkbox {&#13;
+		position: relative;&#13;
+		right: $sp-space--xl;&#13;
+	}&#13;
+&#13;
+	span {&#13;
+		position: relative;&#13;
+		right: $sp-space--xl;&#13;
+	}&#13;
+}&#13;
+&#13;
+.search-option {&#13;
+	padding: unset;&#13;
+	margin-left: $sp-space--md;&#13;
+}&#13;
+&#13;
+.search-option + .search-option {&#13;
+	padding-top: $sp-space--sm;&#13;
+}&#13;
+&#13;
+.search-warning-flyout {&#13;
+	margin-bottom: $sp-space--xl;&#13;
+}&#13;
+&#13;
+.search-warning {&#13;
+	padding: $sp-space--xs $sp-space--md;&#13;
+	color: $text-secondary;&#13;
+}&#13;
+&#13;
+.list-group-item {&#13;
+	border: none;&#13;
+	padding: 0px;&#13;
+}&#13;
+&#13;
+li.list-group-item:not(:last-child) {&#13;
+	margin-bottom: $sp-space--sm;&#13;
+}&#13;
+&#13;
+.filter-groups {&#13;
+	border: 1px solid transparent;&#13;
+}&#13;
+&#13;
+input[type="checkbox"] {&#13;
+	cursor: pointer;&#13;
+	position: absolute;&#13;
+&#13;
+	+label {&#13;
+		cursor: pointer;&#13;
+		padding-left: $sp-space--xl;&#13;
+		margin-bottom: 0px;&#13;
+		white-space: break-spaces;&#13;
+	}&#13;
+}&#13;
+&#13;
+.filter-label {&#13;
+	max-width: $filter-skill-label-width;&#13;
+	display: inline-block;&#13;
+	overflow: hidden;&#13;
+	text-overflow: ellipsis;&#13;
+	white-space: nowrap;&#13;
+}&#13;
+&#13;
+.filter-skills-label {&#13;
+	position: relative;&#13;
+	right: $sp-space--xl;&#13;
+}&#13;
+&#13;
+.option-checkbox {&#13;
+	margin-left: 0px !important;&#13;
+	position: unset !important;&#13;
+	opacity: 0;&#13;
+	width: $sp-space--lg;&#13;
+	height: $sp-space--lg;&#13;
+	z-index: -1;&#13;
+}&#13;
+&#13;
+.filter-select-all {&#13;
+	padding: 0px;&#13;
+	margin-bottom: $sp-space--sm;&#13;
+}&#13;
+&#13;
+.filter-pill-display-flex {&#13;
+	gap: $sp-space--sm;&#13;
+	display: flex;&#13;
+	flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+/* Filter pill styles */&#13;
+.filter-pills-container {&#13;
+	padding: $sp-space--md $sp-space--xl;&#13;
+	background: $background-secondary;&#13;
+	border-bottom: $sp-space--border solid $border-tertiary;&#13;
+	align-items: center;&#13;
+&#13;
+	#filter-pills-group {&#13;
+&#13;
+		.pill {&#13;
+			padding: $sp-space--xs $sp-space--sm;&#13;
+			font-weight: 400;&#13;
+			font-size: $font-size-small;&#13;
+			background: $background-primary !important;&#13;
+			box-sizing: border-box;&#13;
+			border: $sp-space--border solid $border-secondary;&#13;
+		}&#13;
+&#13;
+		.pill-text {&#13;
+			margin: 0px $sp-space--xs;&#13;
+		}&#13;
+	}&#13;
+&#13;
+	.filter-pills-height {&#13;
+		max-height: $filter-pill-height;&#13;
+		overflow: hidden;&#13;
+	}&#13;
+&#13;
+	.filter-pill-actions {&#13;
+		padding-top: $sp-space--sm;&#13;
+	}&#13;
+&#13;
+	.filter-pills-view-all-hide {&#13;
+		visibility: hidden;&#13;
+	}&#13;
+}&#13;
+&#13;
+/* Desktop &amp; Tablet styles*/&#13;
+.filter-container {&#13;
+	border-top: $sp-space--border solid $border-tertiary;&#13;
+	border-bottom: $sp-space--border solid $border-tertiary;&#13;
+	background-color: $background-secondary;&#13;
+	padding: $sp-space--xs $sp-space--xl;&#13;
+&#13;
+	.filter-bar {&#13;
+		width: 70%;&#13;
+	}&#13;
+&#13;
+	.filter-group {&#13;
+		display: flex;&#13;
+		align-items: center;&#13;
+		color: $text-color;&#13;
+		gap: $sp-space--sm;&#13;
+		white-space: nowrap;&#13;
+&#13;
+		fieldset {&#13;
+			&gt;.btn-link {&#13;
+				&amp;:not(:focus) {&#13;
+					color: $text-secondary;&#13;
+				}&#13;
+			}&#13;
+&#13;
+			&gt;.btn-link[aria-expanded="true"] {&#13;
+				color: $link-hover-color;&#13;
+			}&#13;
+		}&#13;
+&#13;
+		.dropdown-menu {&#13;
+			min-width: $sp-space--dropdown;&#13;
+			max-width: $sp-space--dropdown;&#13;
+			padding: $sp-space--sm $sp-space--xs $sp-space--xs;&#13;
+&#13;
+			.conditional-margin {&#13;
+				margin-top: $sp-space--sm;&#13;
+			}&#13;
+&#13;
+			.filter-section {&#13;
+				margin: 0px $sp-space--md;&#13;
+				display: flex;&#13;
+				flex-direction: column;&#13;
+				gap: $sp-space--sm;&#13;
+				margin-bottom: $sp-space--lg;&#13;
+&#13;
+				h5 {&#13;
+					margin-top: 0;&#13;
+				}&#13;
+&#13;
+				hr {&#13;
+					margin: 0;&#13;
+				}&#13;
+&#13;
+				.initials {&#13;
+					margin-top: $sp-space--sm;&#13;
+				}&#13;
+			}&#13;
+&#13;
+			.filter-section + .filter-section {&#13;
+				padding-top: $sp-space--lg;&#13;
+				border-top: $sp-space--border solid $border-tertiary;&#13;
+			}&#13;
+		}&#13;
+&#13;
+		.mh-filter-drop-downs {&#13;
+			z-index: 100;&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+.filter-content {&#13;
+	max-height: 340px;&#13;
+	overflow-y: auto;&#13;
+}&#13;
+&#13;
+.options-skills {&#13;
+	position: relative;&#13;
+	right: $sp-space--xl;&#13;
+}&#13;
+&#13;
+&#13;
+p {&#13;
+	margin: 0;&#13;
+}&#13;
+&#13;
+.filter-actions {&#13;
+	margin: 0 $sp-space--md $sp-space--md;&#13;
+	padding-top: $sp-space--lg;&#13;
+	border-top: $sp-space--border solid $border-tertiary;&#13;
+}&#13;
+&#13;
+.filter-applied {&#13;
+	display: none;&#13;
+}&#13;
+&#13;
+.choice-option {&#13;
+	display: flex;&#13;
+	flex-direction: row;&#13;
+	align-items: flex-start;&#13;
+	gap: $sp-space--sm;&#13;
+	border-radius: $sp-space--xs;&#13;
+	cursor: pointer;&#13;
+	align-self: stretch;&#13;
+	border: $sp-space--border solid transparent;&#13;
+	margin-bottom: 0rem;&#13;
+}&#13;
+&#13;
+.choice-option-selected {&#13;
+	background: $brand-primary-lightest;&#13;
+}&#13;
+&#13;
+.filter-source-checkbox {&#13;
+	opacity: 0;&#13;
+	position: absolute;&#13;
+	width: $sp-space--lg;&#13;
+	height: $sp-space--lg;&#13;
+	z-index: -1;&#13;
+}&#13;
+&#13;
+.filter-checkbox {&#13;
+	width: $sp-space--lg;&#13;
+	height: $sp-space--lg;&#13;
+	background: $background-primary;&#13;
+	border: $sp-space--border solid $border-primary;&#13;
+	border-radius: $border-radius-small;&#13;
+	display: flex;&#13;
+	justify-content: center;&#13;
+	flex-shrink: 0;&#13;
+	margin-top: $sp-space--xs;&#13;
+	cursor: pointer;&#13;
+}&#13;
+&#13;
+.filter-checkbox-checked {&#13;
+	background: $brand-primary;&#13;
+	border: none;&#13;
+}&#13;
+&#13;
+.filter-checkbox-icon {&#13;
+	font-size: $checkbox-icon-size;&#13;
+	line-height: $icon-line-height;&#13;
+	margin-left: $sp-space--border;&#13;
+	color: $background-primary;&#13;
+}&#13;
+&#13;
+.accordion {&#13;
+	background: none;&#13;
+	border: none;&#13;
+	width: $sp-space--accordion;&#13;
+	font-size: $sp-space--lg;&#13;
+	display: flex;&#13;
+	justify-content: center;&#13;
+}&#13;
+&#13;
+.skill-filter-section-header {&#13;
+	display: flex;&#13;
+	align-items: center;&#13;
+	gap: $sp-space--sm;&#13;
+}&#13;
+&#13;
+.filter-source-header {&#13;
+	display: flex;&#13;
+	align-items: baseline;&#13;
+	gap: $sp-space--sm;&#13;
+}&#13;
+&#13;
+input[type="checkbox"] {&#13;
+	margin-top: $sp-space--margin;&#13;
+}&#13;
+&#13;
+button[name="search"]:focus {&#13;
+	outline: $sp-space--xxs solid $input-border-focus !important;&#13;
+	outline-offset: -$sp-space--xs !important;&#13;
+}&#13;
+&#13;
+.manager-hub-skill-search {&#13;
+	padding: $sp-space--sm $sp-space--md $sp-space--lg;&#13;
+	width: 100%;&#13;
+	.mh-search-form {&#13;
+		width: 100%;&#13;
+		display: flex;&#13;
+		align-content: space-between;&#13;
+		border: $sp-space--border solid $border-primary;&#13;
+		border-radius: $sp-space--xs;&#13;
+		padding: $sp-space--margin $sp-space--sm;&#13;
+		height: $sp-space-xxl;&#13;
+	}&#13;
+	input[type="search"] {&#13;
+		height: $sp-space--xl;&#13;
+		padding: unset;&#13;
+		border: none;&#13;
+		box-shadow: none;&#13;
+	}&#13;
+	.search-icon {&#13;
+		align-self: center;&#13;
+		color: $border-primary;&#13;
+		cursor: default;&#13;
+	}&#13;
+}&#13;
+&#13;
+.search-results {&#13;
+	margin-bottom: $sp-space--md;&#13;
+}&#13;
+&#13;
+// Flyout Styling&#13;
+.modal {&#13;
+	.modal-dialog {&#13;
+		overflow-y: initial !important;&#13;
+		height: 100%;&#13;
+		padding: 0rem;&#13;
+		margin: 0rem;&#13;
+&#13;
+		.modal-content {&#13;
+			height: 100%;&#13;
+			border-radius: 0;&#13;
+		}&#13;
+&#13;
+		.modal-body {&#13;
+			max-height: calc(100vh - 135px);&#13;
+			overflow-y: auto;&#13;
+		}&#13;
+&#13;
+		.modal-footer:before,&#13;
+		.modal-footer:after {&#13;
+			content: none;&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+.more-filters-container {&#13;
+	margin-left: 25px;&#13;
+}&#13;
+&#13;
+.modal-flyout.fade.in .modal-dialog {&#13;
+	transform: translate(0, 0);&#13;
+}&#13;
+&#13;
+.modal-flyout.fade .modal-dialog {&#13;
+	margin: 0 0 0 auto;&#13;
+	transform: translate(100%, 0);&#13;
+}&#13;
+&#13;
+.flyout-template-container {&#13;
+	height: 100%;&#13;
+}&#13;
+&#13;
+.flyout-container {&#13;
+	height: 100%;&#13;
+&#13;
+	h3,&#13;
+	h4 {&#13;
+		display: inline-block;&#13;
+	}&#13;
+&#13;
+	.panel-body-padding {&#13;
+		padding-left: 0;&#13;
+	}&#13;
+&#13;
+	.modal-content {&#13;
+		height: 100%;&#13;
+		border-radius: 0;&#13;
+&#13;
+		.modal-header {&#13;
+			padding: $sp-space--lg $sp-space--xl;&#13;
+			margin: 0&#13;
+		}&#13;
+&#13;
+	}&#13;
+&#13;
+	.modal-body {&#13;
+		padding: $sp-space--xl $sp-space--sm;&#13;
+		height: 100% !important;&#13;
+		max-height: calc(100% - 135px) !important;&#13;
+&#13;
+		.panel-title-filter {&#13;
+			margin-top: 0rem;&#13;
+		}&#13;
+&#13;
+		.mh-flyout-skill-search {&#13;
+			margin-bottom: $sp-space--lg;&#13;
+			width: 33%;&#13;
+		}&#13;
+&#13;
+		h3 {&#13;
+			margin-bottom: $sp-space--lg;&#13;
+		}&#13;
+&#13;
+		.panel {&#13;
+			box-shadow: none;&#13;
+			border: none;&#13;
+			display: flex;&#13;
+			flex-direction: column;&#13;
+			gap: $sp-space--sm;&#13;
+		}&#13;
+&#13;
+		.panel + .panel {&#13;
+			margin-top: $sp-space--xl;&#13;
+		}&#13;
+&#13;
+		.divider {&#13;
+			border: $sp-space--border solid $border-tertiary;&#13;
+			margin: $sp-space--xl 0;&#13;
+		}&#13;
+&#13;
+		.flyout-section-checkbox {&#13;
+			display: flex;&#13;
+			flex-direction: row;&#13;
+			align-items: center;&#13;
+			gap: $sp-space--sm;&#13;
+			border-radius: $sp-space--xs;&#13;
+			cursor: pointer;&#13;
+			align-self: stretch;&#13;
+			border: $sp-space--border solid transparent;&#13;
+			margin-bottom: 0rem;&#13;
+		}&#13;
+&#13;
+		.flyout-section-label {&#13;
+			font-weight: 700;&#13;
+		}&#13;
+&#13;
+		.panel-body {&#13;
+			margin-bottom: $sp-space--sm;&#13;
+		}&#13;
+&#13;
+		.filter-checkbox-label {&#13;
+			margin: 0rem;&#13;
+		}&#13;
+&#13;
+		.select-option-container {&#13;
+			margin-bottom: $sp-space--sm;&#13;
+		}&#13;
+&#13;
+		.filter-checkbox {&#13;
+			margin: 0rem;&#13;
+		}&#13;
+&#13;
+		.flyout-option-grid-container {&#13;
+			display: grid;&#13;
+			grid-template-columns: $sp-space--grid $sp-space--grid;&#13;
+			column-gap: $sp-space--xl;&#13;
+			row-gap: $sp-space--sm;&#13;
+		}&#13;
+&#13;
+		.search-section + .search-section{&#13;
+			margin-top: $sp-space--sm;&#13;
+		}&#13;
+&#13;
+		#search-section-additional_skills {&#13;
+			margin-bottom: $sp-space--xl;&#13;
+		}&#13;
+&#13;
+		#flyout-grid-skills {&#13;
+			padding-left: 21px;&#13;
+			grid-template-columns: 393px $sp-space--grid;&#13;
+		}&#13;
+&#13;
+		.flyout-options {&#13;
+			position: relative;&#13;
+			right: $sp-space--xl;&#13;
+		}&#13;
+&#13;
+		.filter-label-flyout {&#13;
+			position: relative;&#13;
+			right: $sp-space--xl;&#13;
+		}&#13;
+&#13;
+		.show-more-btn {&#13;
+			border: none;&#13;
+			align-self: flex-start;&#13;
+			padding-left: 21px;&#13;
+		}&#13;
+	}&#13;
+&#13;
+	.has-search {&#13;
+		display: flex;&#13;
+		align-content: space-between;&#13;
+		border: $sp-space--border solid $border-primary;&#13;
+		border-radius: $sp-space--xs;&#13;
+		padding: $sp-space--margin $sp-space--sm;&#13;
+		max-height: $sp-space-xxl;&#13;
+		width: 244px;&#13;
+&#13;
+		input[type="search"] {&#13;
+			border: none;&#13;
+			padding: unset;&#13;
+			box-shadow: none;&#13;
+			max-height: $sp-space--xl;&#13;
+		}&#13;
+		.search-icon {&#13;
+			align-self: center;&#13;
+			color: $border-primary;&#13;
+		}&#13;
+	}&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+	var widgetName = scope.data.widgetName;
+	var filterGroupClass =  '.' + widgetName + '-filter-group';
+
+	setTimeout(function() {
+		$(document).on('click', '.dropdown-menu', function(event) {
+			var attrValue = event.target.getAttribute("data-filter-group-apply");
+			if (attrValue === 'filter-desktop-apply') {
+				var focusElementId = event.target.getAttribute("data-filter-group-apply-id");
+				angular.element(document.getElementById("filter-" + focusElementId)).focus();
+			} else if(event.target.getAttribute("data-filter-label") == 'skill-filter-label')
+				event.stopPropagation();
+		});
+
+
+		$(document).on('hide.bs.dropdown', filterGroupClass, function(event) {
+			var filterGroupId = event.relatedTarget.getAttribute('data-filter-group-id');
+			var filterGroup = controller.getFilterGroupById(filterGroupId);
+			if(filterGroup)
+				updateUnSavedFilters(filterGroup);
+		});
+
+	}, 0);
+
+	angular.element(window).on("resize", function() {
+		$(".modal-backdrop").hide();
+	});
+
+	function updateUnSavedFilters(filterGroup) {
+		filterGroup.enableClearButton = filterGroup.selectedCount > 0;
+		filterGroup.enableApplyButton = false;
+		filterGroup.filterGroupValues.forEach(function(filterValue){
+			var isFilterAdded = controller.isPillAlreadyPresent(filterValue);
+			if(!isFilterAdded && filterValue.selected)
+				filterValue.selected = false;
+			else if(isFilterAdded && !filterValue.selected)
+				filterValue.selected = true;
+		});
+	}
+}]]></link>
+        <name>Copy of Manager Hub Skill Filter</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.allReportees = new sn_mh.ManagerHubTeamConfig().getReporteeDetails(gs.getUserID());
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-27 05:25:36</sys_created_on>
+        <sys_id>5e7ec65993297110f7c6921354891875</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Copy of Manager Hub Skill Filter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_5e7ec65993297110f7c6921354891875</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-27 05:25:36</sys_updated_on>
+        <template><![CDATA[<div id="skill-filter-desktop-view" ng-include="'skill-filter-desktop'"></div>
+<div class="modal fade modal-flyout" id="mh-skill-filter-flyout-modal">
+  <div class="modal-dialog modal-lg" ng-if="c.toggleFlyout">
+    <div class="flyout-template-container" ng-include="'skill-filter-flyout'"></div>
+  </div>
+</div>
+
+<div class="filter-pills-container" ng-show="c.filterPills.length">
+    <div class="filter-pill-display-flex" id="filter-pills-group" role="group" aria-label="${Currently filtered by}">
+      <!-- Applied Filters -->
+      <div ng-repeat="filter in c.filterPills">
+        <div class="pill rounded">
+          <span data-toggle="tooltip" data-placement="top" title="{{filter.name}}" class="pill-text text-overflow-ellipsis"> {{filter.name}} </span>
+          <span role="button" ng-click="c.clearPill(filter)" aria-label="{{filter.clearLabel}}" tabindex="0" ng-keydown="c.focusFilter($event, filter)">
+            <i class="fa fa-times pointer" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+      <button class="btn btn-link btn-sm" ng-click="c.clearAllFilters()" aria-label="${Clear applied filters}" ng-keydown="c.focusFilter($event)">${Clear all}</button>
+    </div>
+</div> ]]></template>
+    </sp_widget>
+</record_update>
