@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($rootScope, $scope) {
+  /* widget controller */
+  var c = this;
+	 $scope.onSelected = function (value ) {
+        c.server.get({});
+		 console.log(value);
+		if(value!="")  $scope.dropdownClass=true;
+		 else   $scope.dropdownClass=false;
+      $rootScope.$broadcast('State', value);
+    };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.level{
+
+  padding : 6px; 
+  border-radius: 4px;
+  border: 2px #4F52BD solid; 
+  justify-content: flex-start; 
+  align-items: center;
+  text-align: center; 
+  color: #4F52BD; 
+  font-size: 16px;
+  font-family: Lato; 
+  font-weight: 600; 
+  line-height: 20px; 
+  word-wrap; break-word;
+
+
+}
+.selected{
+  padding-top: 6px; 
+  padding-bottom: 6px; 
+  background: #4F52BD ; 
+  border-radius: 4px;
+  border: 1px #4F52BD solid; 
+  justify-content: flex-start; 
+  align-items: center; 
+  text-align: center; 
+  color: white; 
+  font-size: 16px;
+  font-family: Lato; 
+  font-weight: 600; 
+  line-height: 20px; 
+  word-wrap; break-word;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+/* Styles for the custom dropdown arrow */
+.custom-select::after {
+  content: "\25BE"; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #4F52BD; 
+}
+
+.custom-select.white::after {
+  color: white;
+}
+
+/* Styles for the custom dropdown items */
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 25px; /* Adjust padding to make space for the custom arrow */
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>statefilter</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>StateFilter</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	var noteGRChoiceState = new GlideRecord('sys_choice');
+	noteGRChoiceState.addEncodedQuery("nameLIKEcourse^elementSTARTSWITHstate");
+	noteGRChoiceState.query();
+	data.notes = {};
+	data.notes.value = [];
+	data.notes.type = "State";
+	while(noteGRChoiceState.next())
+	{
+		data.notes.value.push(noteGRChoiceState.getDisplayValue('value'));
+	}  
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 10:15:41</sys_created_on>
+        <sys_id>2d7a10b993e13110f7c69213548918b2</sys_id>
+        <sys_mod_count>139</sys_mod_count>
+        <sys_name>StateFilter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_2d7a10b993e13110f7c69213548918b2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-19 05:22:10</sys_updated_on>
+        <template><![CDATA[<div class="custom-select" ng-class="{ 'white': dropdownClass }"  >
+  <!-- Visible part of the dropdown -->
+  <select class="level"   ng-model="c.data.levels" ng-change="onSelected(c.data.levels)" ng-class="{ 'selected': dropdownClass }"  >
+    <option value= "" disabled selected > {{c.data.notes.type}}</option>
+    <option ng-repeat="d in  c.data.notes.value" value="{{ d   }}">{{ d  }}</option>
+  </select>
+</div>]]></template>
+    </sp_widget>
+</record_update>

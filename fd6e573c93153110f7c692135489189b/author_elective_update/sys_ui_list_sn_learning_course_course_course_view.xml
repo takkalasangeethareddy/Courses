@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list action="DELETE" parent="" relationship="" sys_domain="global" table="sn_learning_course_course" version="2" view="course_view">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>duration</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>b9abd30d93d13110f7c6921354891819</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>state</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>31abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>level</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>b1abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>name</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>35abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>author_name</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>b5abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>description</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>39abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>type</element>
+            <list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_id>b9abd30d93d13110f7c692135489181a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>sn_learning_course_course</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>71abd30d93d13110f7c6921354891818</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sn_learning_course_course</sys_name>
+            <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+            <sys_update_name>sys_ui_list_sn_learning_course_course_course_view</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+            <sys_user/>
+            <view display_value="Course View" name="course_view">b672508993113110f7c692135489186c</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_ui_list_sn_learning_course_course_course_view</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_list parent="" relationship="" sys_domain="global" table="sn_learning_course_course" version="2" view="course_view"><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>duration</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>0</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>b9abd30d93d13110f7c6921354891819</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>state</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>1</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>31abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>level</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>2</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>b1abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>name</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>3</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>35abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>author_name</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>4</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>b5abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>description</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>5</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>39abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>type</element><list_id display_value="sn_learning_course_course" element="NULL" name="sn_learning_course_course" parent="NULL" relationship="NULL" sys_domain="global" view="b672508993113110f7c692135489186c">71abd30d93d13110f7c6921354891818</list_id><max_value>false</max_value><min_value>false</min_value><position>6</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_id>b9abd30d93d13110f7c692135489181a</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on></sys_ui_list_element><sys_ui_list action="INSERT_OR_UPDATE"><average_value>false</average_value><element/><max_value>false</max_value><min_value>false</min_value><name>sn_learning_course_course</name><parent/><position/><relationship/><sum>false</sum><sys_class_name>sys_ui_list</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:08:37</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>71abd30d93d13110f7c6921354891818</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sn_learning_course_course</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sys_ui_list_sn_learning_course_course_course_view</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:08:37</sys_updated_on><sys_user/><view display_value="Course View" name="course_view">b672508993113110f7c692135489186c</view><view_name/></sys_ui_list></sys_ui_list></record_update>]]></payload>
+        <payload_hash>-993258743</payload_hash>
+        <record_name>COURSE</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 06:08:37</sys_created_on>
+        <sys_id>79abd30d93d13110f7c692135489181d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18a924e46350000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 06:08:37</sys_updated_on>
+        <type>List Layout</type>
+        <update_guid>b1abd30d1bd13110970244375dca191d</update_guid>
+        <update_guid_history>b1abd30d1bd13110970244375dca191d:-993258743,62a214892a113110f885f06d403b839f:215975568,e8a290894f113110525fe17c09886429:2032162210,7e729089b311311046c14080fa314a09:1721752371</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 12:45:17</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_list">sys_ui_list</sys_db_object>
+        <sys_id>0dd0b9b0929640b681b5d24d4d921cf1</sys_id>
+        <sys_metadata>71abd30d93d13110f7c6921354891818</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_learning_course_course</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent display_value="COURSE">e1cd404593113110f7c6921354891822</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sys_ui_list_sn_learning_course_course_course_view</sys_update_name>
+        <sys_update_version display_value="sys_ui_list_sn_learning_course_course_course_view">79abd30d93d13110f7c692135489181d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 12:45:17</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

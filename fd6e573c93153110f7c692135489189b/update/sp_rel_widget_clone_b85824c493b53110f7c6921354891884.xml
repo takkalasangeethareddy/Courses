@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="cloneFilter">6c5824c493b53110f7c6921354891880</child>
+        <cloned>2023-10-05 11:02:34</cloned>
+        <last_validated>2023-10-05 11:02:34</last_validated>
+        <parent display_value="Your Team Filter">9cd7f3a06b82011024ca2421ee44afec</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($scope, $timeout, i18n) {
+    /*
+     * Events being $emit:
+     *  sn_mh.pill_cleared - when filter pill is cleared
+     *  sn_mh.EmployeeSearchClearFilters - when clearing of filters is triggered by employee search
+     *  sn_mh.AllFiltersCleared - when 'Clear all' is clicked on
+     *  sn_mh.filtersApplied - when filter is applied
+     *
+     * Events being spied $on: 
+     *  refreshFilters - when refresh of filters is to be done. Triggered primarily from 'manager-hub-my-people-content'
+     *  sn_mh.clearFilter - when we have to clear all the filters. Primarily due to employee search. Emitted from: 'manager-hub-my-people-content'
+     *  sn_mh.panelClicked - when the panel from 'yourteamtoday' is clicked
+     */
+
+    var c = this;
+    c.selectedCount = 0;
+    c.filterPills = [];
+    c.enableApplyBtn = false;
+    c.enableClearBtn = false;
+    c.toggleFlyout = false;
+    c.filterPillsHeight = 0;
+    c.limitFilters = c.data.filterData.length;
+    $scope.isFromYourTeamToday = true;
+    var filtersEmployeesMap = c.data.filtersEmployeesMap;
+    var filtersWidth = [];
+
+    c.init = function() {
+        c.view = 'desktop';
+        if (c.data.isMobile || window.innerWidth &lt; 768)
+            c.view = 'mobile';
+    };
+
+    var refreshFilters = $rootScope.$on('refreshFilters', function(event, params) {
+        fetchFilterResults(params);
+    });
+
+    $rootScope.$on("$destroy", function() {
+        refreshFilters();
+    });
+
+    c.selectFilterValues = function(filterGroup, filterSource, event) {
+        c.enableApplyBtn = true;
+        c.enableClearBtn = true;
+        filterSource.enableSelectAll = true;
+        filterSource.filterValues.forEach(function(filter) {
+            filter.selected = true;
+        });
+        updateFilterGroupState(filterGroup, true, true);
+        var parentDiv = $(event.target).parents('.filter-section');
+        $(parentDiv).find('.list-group-item:first').find('input').focus();
+    };
+
+    c.clearFilterGroup = function(filterGroup, event) {
+        updateFilterSourceState(filterGroup, false);
+        var hasChanged = false;
+        filterGroup.filterSources.forEach(function(filterSource) {
+            filterSource.filterValues.forEach(function(filter) {
+                var i, keys;
+                if (filter.selected == true) {
+                    // For every selected filter, Checking whether the filter had already been applied
+                    var flag = true;
+
+                    for (i = 0; i &lt; c.filterPills.length; i++) {
+                        keys = c.filterPills[i];
+                        flag &amp;= (!(keys.sourceId == filterSource.filterSourceId &amp;&amp; keys.id == filter.id));
+                    }
+                    hasChanged |= flag;
+                } else {
+                    // For every unselected filter, Checking whether the filter was applied before
+                    var flag = false;
+                    for (i = 0; i &lt; c.filterPills.length; i++) {
+                        keys = c.filterPills[i];
+                        flag |= (filter.id == keys.id &amp;&amp; keys.sourceId == filterSource.filterSourceId);
+                    }
+                    hasChanged |= flag;
+                }
+            });
+        });
+        updateFilterGroupState(filterGroup, false, hasChanged);
+        var parentDiv = $(event.target).parents('.filter-actions');
+        $(parentDiv).find('.applyBtn').focus();
+    };
+
+    c.onFilterValueChange = function(filterGroup, filterSource) {
+        c.enableApplyBtn = true;
+        filterSource.enableSelectAll = false;
+        // Counting all the filters that are enabled
+        var count = 0,
+        hasChanged = false;
+        filterGroup.filterSources.forEach(function(filterSource) {
+            filterSource.filterValues.forEach(function(filter) {
+                var i, keys;
+                if (filter.selected == true) {
+                    // For every selected filter, Checking whether the filter had already been applied
+                    var flag = true;
+
+                    for (i = 0; i &lt; c.filterPills.length; i++) {
+                        keys = c.filterPills[i];
+                        flag &amp;= (!(keys.sourceId == filterSource.filterSourceId &amp;&amp; keys.id == filter.id));
+                    }
+                    hasChanged |= flag;
+                    count += 1;
+                } else {
+                    // For every unselected filter, Checking whether the filter was applied before
+                    var flag = false;
+                    for (i = 0; i &lt; c.filterPills.length; i++) {
+                        keys = c.filterPills[i];
+                        flag |= (filter.id == keys.id &amp;&amp; keys.sourceId == filterSource.filterSourceId);
+                    }
+                    hasChanged |= flag;
+                }
+            });
+        });
+        updateFilterGroupState(filterGroup, count &gt; 0, hasChanged);
+        c.updateSelectAllState(filterSource);
+    };
+
+    c.onFilterValueChangeMobile = function(filterSource) {
+        // Counting all the filters that are enabled
+        var count = 0,
+        hasChanged = false;
+        c.data.filterData.forEach(function(filterGroup) {
+            filterGroup.filterSources.forEach(function(filterSource) {
+                filterSource.filterValues.forEach(function(filter) {
+                    var i, keys;
+
+                    if (filter.selected == true) {
+                        // For every selected filter, Checking whether the filter had already been applied
+                        var flag = true;
+                        for (i = 0; i &lt; c.filterPills.length; i++) {
+                            keys = c.filterPills[i];
+                            flag &amp;= (!(keys.sourceId == filterSource.filterSourceId &amp;&amp; keys.id == filter.id));
+                        }
+                        hasChanged |= flag;
+                        count += 1;
+                    } else {
+                        // For every unselected filter, Checking whether the filter was applied before
+                        var flag = false;
+                        for (i = 0; i &lt; c.filterPills.length; i++) {
+                            keys = c.filterPills[i];
+                            flag |= (filter.id == keys.id &amp;&amp; keys.sourceId == filterSource.filterSourceId);
+                        }
+                        hasChanged |= flag;
+                    }
+                });
+            });
+        });
+        c.enableApplyBtn = (hasChanged &gt; 0);
+        c.enableClearBtn = (count &gt; 0);
+        c.checkboxSelected = true;
+        filterSource.enableSelectAll = false;
+        c.updateSelectAllState(filterSource);
+    };
+
+    c.applyFilter = function(filterGroup) {
+        filterGroup.enableApplyBtn = false;
+        addFilterPills(filterGroup);
+        fetchFilterResults(c.data.filtersEmployeesMap);
+        if ($scope.isFromYourTeamToday) {
+            $scope.$emit("sn_mh.pill_cleared", {});
+            $scope.isFromYourTeamToday = false;
+        }
+    };
+
+    c.clearPill = function(pill) {
+        updateFilterPills(pill);
+        updateFilterModel(pill);
+        fetchFilterResults(c.data.filtersEmployeesMap);
+        updateAppliedFilterPillsHeight();
+        if ($scope.isFromYourTeamToday) {
+            $scope.$emit("sn_mh.pill_cleared", {});
+            $scope.isFromYourTeamToday = false;
+        }
+    };
+
+    $scope.$on("sn_mh.clearFilter", function() {
+        c.resetFilters();
+        $scope.$emit("sn_mh.EmployeeSearchClearFilters", {
+            allCleared: true
+        });
+    });
+
+    c.clearAllFilters = function() {
+        c.resetFilters();
+        $scope.$emit("sn_mh.AllFiltersCleared", {
+            allCleared: true
+        });
+    };
+
+    c.resetFilters = function() {
+        c.selectedCount = 0;
+        c.enableApply = false;
+        c.enableClear = false;
+        c.data.filterData.forEach(function(group) {
+            group.enableClearBtn = false;
+            group.selectedCount = 0;
+            group.filterSources.forEach(function(filterSource) {
+                filterSource.enableSelectAll = false;
+                filterSource.selectedCount = 0;
+                filterSource.filterValues.forEach(function(filter) {
+                    filter.selected = false;
+                });
+            });
+        });
+        c.filterPills = [];
+    };
+
+    c.updateSelectAllState = function(filterSource) {
+        filterSource.enableSelectAll = filterSource.filterValues.every(function(item) {
+            return item.selected;
+        });
+    };
+
+    c.getFilterGroup = function(filterGroups, groupId) {
+        for (var i = 0; i &lt; filterGroups.length; i++) {
+            if (filterGroups[i].filterGroupId === groupId)
+                return filterGroups[i];
+        }
+        return [];
+    };
+
+    c.getFilterSource = function(filterSources, sourceId) {
+        for (var i = 0; i &lt; filterSources.length; i++) {
+            if (filterSources[i].filterSourceId === sourceId)
+                return filterSources[i];
+        }
+        return [];
+    };
+
+    c.checkIfFilterAlreadyAdded = function(filterId, sourceId) {
+        var filterPills = c.filterPills;
+        var filterPillsLen = filterPills.length;
+        if (filterPillsLen.length === 0)
+            return false;
+        for (var pIdx = 0; pIdx &lt; filterPillsLen; pIdx++)
+            if (filterPills[pIdx].id === filterId &amp;&amp; filterPills[pIdx].sourceId === sourceId)
+                return true;
+        return false;
+    };
+
+    function updateFilterGroupState(filterGroup, enableClear, enableApply) {
+        filterGroup.enableClearBtn = enableClear;
+        filterGroup.enableApplyBtn = enableApply;
+    }
+
+    function updateFilterSourceState(filterGroup, toggle) {
+        filterGroup.filterSources.forEach(function(filterSource) {
+            filterSource.enableSelectAll = toggle;
+            filterSource.filterValues.forEach(function(filter) {
+                filter.selected = toggle;
+            });
+        });
+    }
+
+    function fetchFilterResults(updatedEmployeeInfo) {
+        filtersEmployeesMap = updatedEmployeeInfo;
+        var sysIds = c.data.employeeSysIds;
+        var groupedFilterSourcesPills = fetchGroupedFilterSourcesPills(c.filterPills);
+        var filterSourcesPillKeys = Object.keys(groupedFilterSourcesPills);
+        filterSourcesPillKeys.forEach(function(sourceKey) {
+            var sourceLevelEmployees = [];
+            var filters = [];
+            var filterValues = groupedFilterSourcesPills[sourceKey];
+            if (filterValues.length &gt; 0) {
+                var filtersWithEmployees = filtersEmployeesMap[sourceKey];
+                filterValues.forEach(function(filter) {
+                    var emps = filtersWithEmployees[filter.id];
+                    sourceLevelEmployees = sourceLevelEmployees.concat(emps);
+                });
+                sysIds = sysIds.filter(function(sysId) {
+                    return sourceLevelEmployees.indexOf(sysId) &gt; -1;
+                });
+            }
+        });
+        $scope.$emit('sn_mh.filtersApplied', {
+            'payload': {
+                filteredEmployeeIds: sysIds,
+                selectedFilterCount: c.selectedCount
+            }
+        });
+        return sysIds;
+    }
+
+    function addFilterPills(filterGroup) {
+        var deltaFilters = [];
+        var groupId = filterGroup.filterGroupId;
+        filterGroup.filterSources.forEach(function(filterSource) {
+            var sourceId = filterSource.filterSourceId;
+            filterSource.filterValues.forEach(function(filter) {
+                var filterAdded = c.checkIfFilterAlreadyAdded(filter.id, sourceId);
+                if (!filterAdded &amp;&amp; filter.selected)
+                    c.filterPills.push({
+                        id: filter.id,
+                        value: filter.value,
+                        groupId: groupId,
+                        sourceId: sourceId,
+                        clearLabel: i18n.format(c.data.clearLabel, filter.value)
+                    });
+                else if (filterAdded &amp;&amp; !filter.selected)
+                    deltaFilters.push({
+                        id: filter.id,
+                        sourceId: sourceId
+                    });
+            });
+        });
+        removeUnCheckedFilters(deltaFilters);
+        updateSelectedFilterCount(filterGroup);
+    }
+
+    function updateFilterModel(clearedPill) {
+        var filterGroup = c.getFilterGroup(c.data.filterData, clearedPill.groupId);
+        var filterSource = c.getFilterSource(filterGroup.filterSources, clearedPill.sourceId);
+        filterGroup.enableApplyBtn = true;
+        filterSource.enableSelectAll = false;
+        filterSource.filterValues.forEach(function(filter) {
+            if (filter.id === clearedPill.id) {
+                filter.selected = false;
+                c.selectedCount--;
+                filterGroup.selectedCount--;
+                filterSource.selectedCount--;
+            }
+        });
+    }
+
+    function updateSelectedFilterCount(filterGroup) {
+        var prevfilterGrpCount = filterGroup.selectedCount;
+        filterGroup.selectedCount = 0;
+        filterGroup.filterSources.forEach(function(filterSource) {
+            filterSource.selectedCount = filterSource.filterValues.reduce(function(acc, filter) {
+                if (filter.selected)
+                    acc += 1;
+                return acc;
+            }, 0);
+            filterGroup.selectedCount += filterSource.selectedCount;
+        });
+        c.selectedCount += filterGroup.selectedCount - prevfilterGrpCount;
+    }
+
+    applyFilterMobile = function() {
+        c.enableApplyBtn = false;
+        if (c.checkboxSelected) {
+            c.checkboxSelected = false;
+            c.enableClearBtn = true;
+        }
+        c.data.filterData.forEach(function(filterGroup) {
+            filterGroup.enableApplyBtn = false;
+            addFilterPills(filterGroup);
+        });
+        fetchFilterResults(c.data.filtersEmployeesMap);
+        $timeout(updateAppliedFilterPillsHeight, 0);
+    };
+
+    clearAllFiltersMobile = function() {
+        c.data.filterData.forEach(function(group) {
+            group.filterSources.forEach(function(filterSource) {
+                filterSource.enableSelectAll = false;
+                filterSource.filterValues.forEach(function(filter) {
+                    filter.selected = false;
+                });
+            });
+        });
+
+        var hasChanged = false;
+        c.data.filterData.forEach(function(filterGroup) {
+            filterGroup.filterSources.forEach(function(filterSource) {
+                filterSource.filterValues.forEach(function(filter) {
+                    var i, keys;
+
+                    if (filter.selected == true) {
+                        // For every selected filter, Checking whether the filter had already been applied
+                        var flag = true;
+                        for (i = 0; i &lt; c.filterPills.length; i++) {
+                            keys = c.filterPills[i];
+                            flag &amp;= (!(keys.sourceId == filterSource.filterSourceId &amp;&amp; keys.id == filter.id));
+                        }
+                        hasChanged |= flag;
+                    } else {
+                        // For every unselected filter, Checking whether the filter was applied before
+                        var flag = false;
+                        for (i = 0; i &lt; c.filterPills.length; i++) {
+                            keys = c.filterPills[i];
+                            flag |= (filter.id == keys.id &amp;&amp; keys.sourceId == filterSource.filterSourceId);
+                        }
+                        hasChanged |= flag;
+                    }
+                });
+            });
+        });
+        c.enableApplyBtn = (hasChanged &gt; 0);
+        c.enableClearBtn = false;
+    };
+
+    function updateFilterPills(delPill) {
+        c.filterPills = c.filterPills.filter(function(pill) {
+            return !(delPill.id === pill.id &amp;&amp; delPill.sourceId === pill.sourceId);
+        });
+    }
+
+    function removeUnCheckedFilters(filters) {
+        var filtersLength = filters.length;
+        c.filterPills = c.filterPills.filter(function(pill) {
+            for (var fIdx = 0; fIdx &lt; filtersLength; fIdx++) {
+                if (filters[fIdx].id === pill.id &amp;&amp; filters[fIdx].sourceId === pill.sourceId)
+                    return false;
+            }
+            return true;
+        });
+    }
+
+    function fetchGroupedFilterSourcesPills(filterPills) {
+        return filterPills.reduce(function(acc, filter) {
+            var key = filter.sourceId;
+            if (!acc[key])
+                acc[key] = [filter];
+            else
+                acc[key].push(filter);
+            return acc;
+        }, {});
+    }
+
+    function updateAppliedFilterPillsHeight() {
+        $timeout(function() {
+            var filterPillsGroup = document.getElementById("filter-pills-group");
+            var offsetHeight = filterPillsGroup.offsetHeight;
+            var scrollHeight = filterPillsGroup.scrollHeight;
+            c.filterPillsHeight = scrollHeight &gt; 68 ? scrollHeight : offsetHeight;
+        }, 0);
+    }
+
+    $scope.$on('sn_mh.panelClicked', function(event, payload) {
+        $scope.isFromYourTeamToday = payload.isFromYourTeamToday;
+        c.resetFilters();
+        payload.dataSources.forEach(function(dataSource) {
+            var filterGroup = c.getFilterGroup(c.data.filterData, dataSource.filterGroupId);
+            var filterSource = c.getFilterSource(filterGroup.filterSources, dataSource.filterSourceId);
+            filterSource.filterValues.forEach(function(filter) {
+                if (dataSource.filterValues.indexOf(filter.id) &gt; -1)
+                    filter.selected = true;
+            });
+            addFilterPills(filterGroup);
+            c.updateSelectAllState(filterSource);
+        });
+        fetchFilterResults(c.data.filtersEmployeesMap);
+    });
+
+    c.calculateFiltersWidth = function() {
+        if (filtersWidth.length) return;
+        var filterGroups = angular.element(document.getElementsByClassName('filter-group-button'));
+        var filterLabel = angular.element(document.getElementsByClassName('filter-label'))[0];
+        var filterLabelWidth = filterLabel &amp;&amp; filterLabel.offsetWidth;
+        filtersWidth.push(filterLabelWidth);
+        for (var i = 0; i &lt; filterGroups.length; i++)
+            filtersWidth.push(filterGroups[i].offsetWidth);
+    };
+
+    c.adaptFilters = function() {
+        c.FilterArray = [];
+        var filterContainer = angular.element(document.getElementsByClassName('filter-bar'))[0];
+        var moreFilterButton = angular.element(document.getElementsByClassName('more-filters'))[0];
+        var filterContainerWidth = filterContainer &amp;&amp; filterContainer.offsetWidth;
+        var moreFilterButtonWidth = moreFilterButton &amp;&amp; moreFilterButton.offsetWidth;
+        var totalFiltersWidth = 0;
+        if (moreFilterButton)
+            filterContainerWidth -= moreFilterButtonWidth;
+        for (var item = 0; item &lt; filtersWidth.length; item++) {
+            if (filterContainerWidth &gt;= totalFiltersWidth + filtersWidth[item] + 8) {
+                totalFiltersWidth += filtersWidth[item] + 8;
+                c.FilterArray.push(filtersWidth[item]);
+            } else
+                break;
+        }
+        c.limitFilters = c.FilterArray.length - 1 || c.data.filterData.length;
+    };
+
+    c.adjustFilters = function() {
+        $timeout(function() {
+            c.calculateFiltersWidth();
+            c.adaptFilters();
+        }, 0);
+    };
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;$label-primary-bg: #D1D2EE !default;
+$badge-bg: #656E81 !default;
+$panel-default-text: #181A1F !default;
+$border-primary: #8790A1 !default;
+$border-tertiary: #DADDE2 !default;
+$border-secondary: #ACB2BE !default;
+$brand-primary: #4F52BD !default;
+$background-primary: #FFFFFF !default;
+$text-white: #FFFFFF !default;
+$text-muted: #656E81 !default;
+$text-primary: #181A1F !default;
+$font-size-xs: 12px !default;
+$font-size-small: 14px !default;
+$font-size-lg: 16px !default;
+$sp-space--xxs: 2px !default;
+$sp-space--xs: 4px !default;
+$sp-space--sm: 8px !default;
+$sp-space--md: 12px !default;
+$sp-space--lg: 16px !default;
+$sp-space--xl: 24px !default;
+$border: #D3D6DC !default;
+
+/* Common styles */
+.btn.btn-link:disabled {
+  border: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+input[type="checkbox"] {
+  accent-color: $brand-primary;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mg-tp-lg {
+  margin-top: $sp-space--lg;
+}
+
+.mg-bt-lg {
+  margin-bottom: $sp-space--lg;
+}
+
+.mg-tp-emty {
+  margin-top: 0rem;
+}
+
+.mg-bt-emty {
+  margin-bottom: 0rem;
+}
+
+.mg-bt-md {
+  margin-bottom: $sp-space--md;
+}
+
+.mg-tp-xxl {
+  margin-top: 3.6rem;
+}
+
+.pd-all-xl {
+  padding: $sp-space--xl;
+}
+
+.mg-tp-sm {
+  margin-top: $sp-space--sm;
+}
+
+.mg-bt-sm {
+  margin-bottom: $sp-space--sm;
+}
+
+.padding-left-14{
+  padding-left: 14px;
+}
+
+.pd-initial {
+  padding: initial !important;
+}
+
+/* filter checkbox styles */
+.list-group {
+  margin-bottom: 0px;
+}
+
+.list-group-item {
+  border: none;
+  padding: 0px;
+}
+
+li.list-group-item:not(:last-child) {
+  margin-bottom: $sp-space--sm;
+}
+
+.filter-groups{
+	border: 1px solid transparent;
+}
+
+.list-group-item {
+  input[type="checkbox"] {
+    cursor:pointer;
+    position: absolute;
+    +label {
+      cursor:pointer;
+      padding-left: $sp-space--xl;
+      margin-bottom: 0px;
+      white-space: break-spaces;
+    }
+  }
+}
+
+.filter-checkbox {
+  margin-left: 0px !important;
+  position: unset !important;
+}
+.filter-checkbox-label {
+  padding-left: $sp-space--xs;
+}
+
+.filter-select-all {
+  padding: 0px;
+  margin-bottom: $sp-space--sm;
+}
+
+.filter-pill-display-flex {
+  gap: $sp-space--sm;
+  display: flex;
+  flex-wrap: wrap;	
+}
+
+.now-mobile-filter-pills {
+  display: inline-block;
+  margin: 5px;
+}
+
+/* Filter pill styles */
+.filter-pills-container {
+  padding: $sp-space--md $sp-space--xl;
+  background: $background-secondary;
+  border-bottom: 1px solid $border-tertiary;
+  align-items: center;
+  #filter-pills-group {
+    
+    .pill {
+      padding: $sp-space--xs $sp-space--sm;
+      font-weight: 400;
+      font-size: $font-size-small;
+      background: $background-primary !important;
+      box-sizing: border-box;
+      border: 1px solid $border-secondary;
+    }
+    .pill-text {
+      margin: 0px $sp-space--xs;
+    }
+  }
+  
+  .filter-pills-height {
+    max-height: 68px;
+    overflow: hidden;
+  }
+  
+  .now-mobile-filter-pills-height {
+    max-height: 72px;
+  }
+  
+  .filter-pill-actions {
+    padding-top: $sp-space--sm;
+  }
+  .filter-pills-view-all-hide {
+    visibility: hidden;
+  }
+}
+
+/* Desktop &amp;amp; Tablet styles*/
+.filter-container {
+  border-top: 1px solid $border-tertiary;
+  border-bottom: 1px solid $border-tertiary;
+  background-color: $background-secondary;
+  padding: $sp-space--xs $sp-space--xl;
+  .filter-bar {
+    width: 70%;
+  }
+  .filter-group {
+    display: flex;
+    align-items: center;
+    color: $text-color;
+    gap: $sp-space--sm;
+    white-space:nowrap;
+    fieldset {
+      &amp;gt;.btn-link {
+        &amp;amp;:not(:focus) {
+          color: $text-secondary;
+        }
+      }
+      &amp;gt;.btn-link[aria-expanded="true"] {
+        color: $link-hover-color;
+      }
+    }
+    .dropdown-menu {
+      min-width: 300px;
+      max-width: 300px;
+      padding: $sp-space--lg;
+      .conditional-margin {
+        margin-top: $sp-space--sm;
+      }
+      .filter-section {
+        h5 {
+          margin-top: 0;
+          margin-bottom: $sp-space--md;
+        }
+        hr[aria-hidden="false"] {
+          margin-top: $sp-space--lg;
+          margin-bottom: $sp-space--lg;
+        }
+      }
+    }
+    .mh-filter-drop-downs{
+      z-index: 10;
+    }
+  }
+}
+
+.sn-manager-hub-filter {
+  .now-mobile-button-radius {
+    border-radius: $sp-space--xs !important;
+  }
+}
+
+/* Mobile styles*/
+.mh-mobile-filter-container {
+  border-top: 1px solid $border-tertiary;
+  border-bottom: 1px solid $border-tertiary;
+  background-color: $background-secondary;
+  padding: $sp-space--md $sp-space--xl;
+  
+  .mh-mobile-filter-btn-container {
+    .btn-lg {
+      font-size: $font-size-lg;
+    }
+    .btn-default {
+      color: $text-primary;
+      border-color: $border;
+    }
+  }
+  
+  .modal {
+    .modal-header {
+      padding: $sp-space--xl;
+      padding-bottom: $sp-space--lg;
+      .close {
+      	color: $text-primary;
+      }
+    }
+    .modal-body {
+      padding: $sp-space--xl;
+      padding-top: $sp-space--sm;
+    }
+    .modal-dialog {
+      width: 100%;
+      max-width: none;
+    }
+    .modal-footer {
+    	position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+  .panel-default {
+    margin-top: $sp-space--lg;
+    margin-bottom: $sp-space--lg;
+  }
+  .panel-sub-title-filter {
+    color: $text-muted;
+    margin-top: 0rem;
+    margin-bottom: $sp-space--sm;
+  }
+  .panel-anchor-color {
+    color: $text-primary;
+  }
+}
+
+/* Panel styles */
+.panel-group .panel {
+  border: none;
+  box-shadow: none;
+}
+
+.panel-default&amp;gt; .panel-heading +  .panel-collapse &amp;gt; .panel-body {
+  border-top-color: $text-white;
+  padding: 0rem;
+}
+
+.panel-default&amp;gt;.panel-heading {
+  padding: 0rem 0rem;
+  background-color: $background-primary;
+}
+
+.panel-heading {
+  .accordion-toggle {
+    &amp;amp;:after {
+      font-family: "FontAwesome";
+      content: "\f077";
+      float: right;
+      font-size: $sp-space--lg;
+    }
+  }
+  .accordion-toggle.collapsed {
+    &amp;amp;:after {
+      content: "\f078";
+    }
+  }
+}
+
+/* Modal Styles */
+.modal {
+  .modal-dialog {
+    overflow-y: initial !important;
+    height: 100%;
+    padding: 0rem;
+    margin: 0rem;
+    .modal-content {
+      height: 100%;
+      border-radius: 0;
+    }
+    .modal-body {
+      max-height: calc(100vh - 135px);
+      overflow-y: auto;
+    }
+    .modal-footer:before, .modal-footer:after {
+      content: none;
+    }
+  }
+}
+
+.more-filters-container {
+  margin-left: 25px;
+}
+
+.modal-flyout.fade.in .modal-dialog {
+  transform: translate(0, 0);
+}
+
+.modal-flyout.fade .modal-dialog {
+  margin: 0 0 0 auto;
+  transform: translate(100%, 0);
+}
+
+.flyout-template-container {
+	height: 100%;
+}
+
+.flyout-container {
+  height: 100%;
+
+  h3, h4 {
+    display: inline-block;
+  }
+ .panel-body-padding{
+    padding-left: 0;
+  }
+  .modal-content {
+    height: 100%;
+    border-radius: 0;
+
+    .modal-header {
+      padding: $sp-space--lg $sp-space--xl;
+      margin:0
+    }
+
+  }
+  .modal-body {
+    padding: $sp-space--xl $sp-space--sm;
+    height: 100% !important;
+    max-height: calc(100% - 135px) !important;
+
+    .divider {
+      margin: $sp-space--xl 0px;
+      border-top: 0.1rem solid $border;
+    }
+    .panel-title-filter{
+      margin-top: 0rem;
+      margin-bottom: 0rem;
+    }
+    .panel-sub-title-filter{
+      margin-top: $sp-space--lg;
+      margin-bottom: $sp-space--md;
+      color: $text-muted;
+      font-size: $sp-space--lg;
+    }
+    .panel {
+      box-shadow:none;
+    }
+    .panel-heading {
+      padding: 0rem;
+    }
+    .panel-body {
+      margin-bottom: $sp-space--sm;
+    }
+    .filter-checkbox-label {
+      margin: 0rem;
+    }
+    .select-option-container {
+      margin-bottom: $sp-space--sm;
+    }
+    .filter-checkbox {
+      margin: 0rem;
+    }
+  }
+}
+
+.filter-footer-container {
+  text-align: left;
+
+  .filter-footer {
+    margin-top: 0rem;
+  }
+  .clear-filter-button {
+    padding: 0;
+    color: $brand-primary;
+  }
+  
+  position: sticky;
+  bottom: 0;
+  background-color: inherit;
+  
+}
+
+@media (min-width : 768px) and (max-width: 1200px) {
+  .filter-bar {
+    width:100% !important;
+  }
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;mh-your-team-filter&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+		controller.currentFocusedElementIndex = {};
+		controller.previousDropdown = '';
+	
+    $(element).on('keydown', '.dropdown-menu', function(e) {
+        if (e.keyCode === 27) {
+            var dropdownToggle = $(e.target).parents('.dropdown').children('.dropdown-toggle');
+            dropdownToggle.dropdown('toggle');
+            dropdownToggle.focus();
+        }
+    });
+
+    setTimeout(function() {
+        $(document).on('click', '.dropdown-menu', function(e) {
+            var attrValue = e.target.getAttribute("data-filter-grp-apply");
+            if (attrValue === 'filter-desktop-apply') {
+                var focusElementId = e.target.getAttribute("data-filter-grp-apply-id");
+                angular.element(document.getElementById("filter-" + focusElementId)).focus();
+            } else
+                e.stopPropagation();
+        });
+
+        $(document).on('hide.bs.dropdown', '.filter-group', function(event) {
+            var filterGroupId = event.relatedTarget.getAttribute('data-filter-grp-id');
+						clearNonAppliedFilters(filterGroupId);
+            scope.$digest();
+        });
+
+        $(document).on('hide.bs.modal', '#mh-mobile-filter-modal', function() {
+            handleDraftFilters();
+        });
+
+        $(document).on('hidden.bs.modal', '#mh-flyout-filter-modal', function() {
+            handleDraftFilters();
+        });
+
+    }, 0);
+
+    angular.element(window).on("resize", function() {
+        if (window.innerWidth &lt; 768)
+            controller.view = 'mobile';
+        else {
+            $(".modal-backdrop").hide();
+            controller.view = 'desktop';
+        }
+    });
+
+    controller.focusFilter = function(event, filter) {
+        if (event.keyCode === 13) {
+            if (filter)
+                controller.clearPill(filter);
+            else
+                controller.clearAllFilters();
+            $(".filter-group &gt; fieldset:first &gt; button").focus();
+        }
+    };
+    angular.element(window).on('resize', controller.adaptFilters);
+
+    // Circular tabbing on the popup
+    controller.handleAccessibilityInFlyout = function(e) {
+        var target = e.target;
+        var shiftPressed = e.shiftKey;
+        if (e.keyCode === 9) {
+            var closeButton = angular.element(document.getElementById('mh-flyout-close-btn'));
+            var cancelButton = angular.element(document.getElementById('mh-flyout-cancel-btn'));
+            var applyButton = angular.element(document.getElementById('mh-flyout-apply-btn'));
+            if ($(target).is(closeButton)) {
+                if (shiftPressed) {
+                    if (!applyButton[0].disabled)
+                        applyButton.focus();
+                    else
+                        cancelButton.focus();
+                    e.preventDefault();
+                }
+                return true;
+            } else if ($(target).is(cancelButton) &amp;&amp; applyButton[0].disabled) {
+                if (!shiftPressed) {
+                    closeButton.focus();
+                    e.preventDefault();
+                }
+            } else if ($(target).is(applyButton)) {
+                if (!shiftPressed) {
+                    closeButton.focus();
+                    e.preventDefault();
+                }
+            }
+            return false;
+        }
+        return true;
+    };
+
+    function handleDraftFilters() {
+        if (controller.selectedCount === 0)
+            controller.enableClearBtn = false;
+        controller.enableApplyBtn = false;
+        controller.data.filterData.forEach(function(filterGroup) {
+            updateDraftFilters(filterGroup);
+        });
+    }
+
+    function updateDraftFilters(filterGroup) {
+        filterGroup.filterSources.forEach(function(filterSource) {
+            var sourceId = filterSource.filterSourceId;
+            filterSource.filterValues.forEach(function(filter) {
+                var filterAdded = controller.checkIfFilterAlreadyAdded(filter.id, sourceId);
+                if (!filterAdded &amp;&amp; filter.selected)
+                    filter.selected = false;
+                else if (filterAdded &amp;&amp; !filter.selected)
+                    filter.selected = true;
+            });
+            filterGroup.enableApplyBtn = false;
+            controller.updateSelectAllState(filterSource);
+        });
+    }
+	
+	
+	
+	// Keyboard navigation for dropdowns
+	$(element).on('keydown', '.mh-filter-drop-downs', function(e) {
+		var filterGroupId = e.target.dataset.filterGrpId || e.target.dataset.filterGrpApplyId;
+		controller.previousDropdown = filterGroupId;
+		var dropDownClass = '.mh-filter-drop-downs-' + filterGroupId;
+		var elementsInDropdown = $(dropDownClass).find("[tabindex='-1']");
+		if(controller.currentFocusedElementIndex[filterGroupId] === undefined)
+			controller.currentFocusedElementIndex[filterGroupId] = 0;
+
+		if ([38, 40].indexOf(e.keyCode) !== -1) {
+			if(e.keyCode === 38) {
+				// UP Arrow
+				nextIndex = controller.currentFocusedElementIndex[filterGroupId] ? (controller.currentFocusedElementIndex[filterGroupId] - 1) : elementsInDropdown.length - 1;
+				controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex);
+				elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+			} else if(e.keyCode === 40) {
+				// Down Arrow
+				elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+				nextIndex = (controller.currentFocusedElementIndex[filterGroupId] + 1) % elementsInDropdown.length;
+				controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex, 'down');
+			}
+		}
+
+		
+    return true;
+	});
+	
+	$(element).on('keydown', '.mh-filter-drop-down-button', function(e) {
+		setTimeout(function() {
+			clearNonAppliedFilters(controller.previousDropdown);
+			scope.$digest();
+		}, 0);
+		
+		setTimeout(function() {
+			var filterGroupId = e.target.dataset.filterGrpId;
+			var dropDownClass = '.mh-filter-drop-downs-' + filterGroupId;
+			var elementsInDropdown = $(dropDownClass).find("[tabindex='-1']");
+			if(controller.previousDropdown) {
+				controller.currentFocusedElementIndex[controller.previousDropdown] = 0;
+			}
+			
+			if(controller.currentFocusedElementIndex[filterGroupId] === undefined)
+				controller.currentFocusedElementIndex[filterGroupId] = 0;
+
+			if (e.keyCode === 40) {
+					// Down Arrow
+					elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+				
+					var nextIndex = (controller.currentFocusedElementIndex[filterGroupId] + 1) % elementsInDropdown.length;
+					controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex, 'down');
+			}
+			
+			return true;
+		}, 0);
+	});
+	
+	function checkIfDisabled(element) {
+		return element.disabled;
+	}
+	
+	function findNextEnabledElementIndex(elementList, index, direction) {
+		while(checkIfDisabled(elementList[index])) {
+			if(direction === 'down')
+				index = (index + 1) % elementList.length;
+			else
+				index = index ? (index - 1) : elementList.length - 1;
+		}
+		
+		return index;
+	}
+	
+	function clearNonAppliedFilters(filterGroupId) {
+		var filterGroup = controller.getFilterGroup(controller.data.filterData, filterGroupId);
+		if (filterGroup.selectedCount === 0)
+			filterGroup.enableClearBtn = false;
+		else
+			filterGroup.enableClearBtn = true;
+		filterGroup.enableApplyBtn = false;
+		updateDraftFilters(filterGroup);
+	}
+}]]&gt;&lt;/link&gt;&lt;name&gt;Your Team Filter&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    data.isMobile = gs.isMobile();
+    data.isOnNowMobileApp = $sp.getParameter("view") === 'mobile';
+    var noRecordId = 'sn_mh_no_record';
+    var noData = gs.getMessage('No data');
+    data.clearLabel = gs.getMessage("Clear {0}");
+    data.showFilterContainer = false;
+
+    if (!input) {
+        var mhTeamConfig = new sn_mh.ManagerHubTeamConfig();
+        data.employeeSysIds = mhTeamConfig.getReportees(gs.getUserID());
+        data.filterData = mhTeamConfig.getFilters(data.employeeSysIds);
+        data.filtersEmployeesMap = mhTeamConfig.getFiltersWithEmployees(data.employeeSysIds);
+        updateFiltersWithNoOption();
+    }
+
+    function updateFiltersWithNoOption() {
+        for (var fdIdx = data.filterData.length - 1; fdIdx &gt;= 0; --fdIdx) {
+            var filterSources = data.filterData[fdIdx].filterSources;
+            for (var fsIdx = filterSources.length - 1; fsIdx &gt;= 0; --fsIdx) {
+                var filterSource = filterSources[fsIdx];
+                var useAlternateLabel = filterSource.useAlternateLabel;
+                if (useAlternateLabel === "false")
+                    updateFilters({
+                        id: noRecordId,
+                        value: noData
+                    }, filterSources, fsIdx);
+                else {
+                    var filterOpt = {
+                        id: noRecordId,
+                        value: filterSource.noDataExistsLabel || noData
+                    };
+                    updateFilters(filterOpt, filterSources, fsIdx);
+                }
+                if (filterSource.filterValues.length === 0)
+                    filterSources.splice(fsIdx, 1);
+                else
+                    data.showFilterContainer = true;
+            }
+            if (filterSources.length === 0)
+                data.filterData.splice(fdIdx, 1);
+        }
+    }
+
+    function updateFilters(filterOpt, filterSources, index) {
+        var filterSource = filterSources[index];
+        var filterSourceId = filterSource.filterSourceId;
+        var nullRecords = data.filtersEmployeesMap[filterSourceId].sn_mh_no_record;
+        var nullRecordChk = nullRecords &amp;&amp; nullRecords.length &gt; 0;
+        var showNoData = filterSource.showNoData;
+        if (nullRecordChk &amp;&amp; showNoData === "1")
+          filterSource.filterValues.push(filterOpt);
+        if (filterSource.filterValues.length === 1 &amp;&amp; filterSource.showBasedOnCount === "1")
+            filterSources.splice(index, 1);
+    }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-02 13:08:21&lt;/sys_created_on&gt;&lt;sys_id&gt;9cd7f3a06b82011024ca2421ee44afec&lt;/sys_id&gt;&lt;sys_mod_count&gt;52&lt;/sys_mod_count&gt;&lt;sys_name&gt;Your Team Filter&lt;/sys_name&gt;&lt;sys_package display_value="Manager Hub" source="sn_mh"&gt;d20a85536b30011024ca2421ee44affa&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Manager Hub"&gt;d20a85536b30011024ca2421ee44affa&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_9cd7f3a06b82011024ca2421ee44afec&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-06-06 08:22:21&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-init="c.init()" class="sn-manager-hub-filter"&gt;
+  &lt;div ng-include="'sn-mh-filter-mobile'" ng-if="c.view === 'mobile'"&gt;&lt;/div&gt;
+  &lt;div ng-include="'sn-mh-filter-desktop'" ng-if="c.view === 'desktop'"&gt;&lt;/div&gt;
+  &lt;div class="modal fade modal-flyout" id="mh-flyout-filter-modal"&gt;
+    &lt;div class="modal-dialog modal-lg" ng-if="c.toggleFlyout"&gt;
+      &lt;div class="flyout-template-container" ng-include="'sn-mh-filter-flyout'"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="filter-pills-container" ng-show="c.filterPills.length"&gt;
+  &lt;div class="{{ c.view === 'mobile' &amp;&amp; c.filterPillsHeight &gt; 68 ? 'filter-pills-height' : '' }} {{ c.data.isOnNowMobileApp ? '' : 'filter-pill-display-flex' }}" ng-class="{'now-mobile-filter-pills-height': c.data.isOnNowMobileApp &amp;&amp; (c.filterPillsHeight &gt; 68)}" id="filter-pills-group" role="group" aria-label="${Currently filtered by}"&gt;
+    &lt;!-- Applied Filters --&gt;
+    &lt;div ng-repeat="filter in c.filterPills" class="{{ c.data.isOnNowMobileApp ? 'now-mobile-filter-pills' : '' }}"&gt;
+      &lt;div class="pill rounded"&gt;
+        &lt;span data-toggle="tooltip" data-placement="top" title="{{filter.value}}" class="pill-text text-overflow-ellipsis"&gt; {{filter.value}} &lt;/span&gt;
+        &lt;span role="button" ng-click="c.clearPill(filter)" aria-label="{{filter.clearLabel}}" tabindex="0" ng-keydown="c.focusFilter($event, filter)"&gt;
+          &lt;i class="fa fa-times pointer" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button ng-if="c.view === 'desktop'" class="btn btn-link btn-sm" ng-click="c.clearAllFilters()" aria-label="${Clear applied filters}" ng-keydown="c.focusFilter($event)"&gt;${Clear all}&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div ng-if="c.view === 'mobile'" class="filter-pill-actions display-flex space-between"&gt;
+    &lt;button ng-click="c.filterPillsHeight=0" class="btn btn-link {{c.filterPillsHeight &gt; 68 ? '' : 'filter-pills-view-all-hide'}} {{ c.data.isOnNowMobileApp ? 'now-mobile-button-radius' : '' }}" aria-label="${View all}"&gt;${View all}&lt;/button&gt;     
+    &lt;button class="btn btn-link {{ c.data.isOnNowMobileApp ? 'now-mobile-button-radius' : '' }}" ng-click="c.clearAllFilters()" aria-label="${Clear applied filters}" ng-keydown="c.focusFilter($event)"&gt;${Clear all}&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-10-05 11:02:34</sys_created_on>
+        <sys_id>b85824c493b53110f7c6921354891884</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>6c5824c493b53110f7c6921354891880</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_b85824c493b53110f7c6921354891884</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-05 11:02:34</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action">
+    <sys_ui_policy_action action="DELETE">
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field>html_script</field>
+        <mandatory>false</mandatory>
+        <sys_class_name>sys_ui_policy_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 06:10:56</sys_created_on>
+        <sys_id>ee1c5b0d93d13110f7c69213548918be</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>html_script</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sys_ui_policy_action_ee1c5b0d93d13110f7c69213548918be</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 06:38:43</sys_updated_on>
+        <table>sn_learning_course_course</table>
+        <ui_policy display_value="To populate specific field">5efbd70d93d13110f7c69213548918e1</ui_policy>
+        <visible>false</visible>
+    </sys_ui_policy_action>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_ui_policy_action_ee1c5b0d93d13110f7c69213548918be</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action"><sys_ui_policy_action action="INSERT_OR_UPDATE"><cleared>false</cleared><disabled>ignore</disabled><field>html_script</field><mandatory>false</mandatory><sys_class_name>sys_ui_policy_action</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-14 06:10:56</sys_created_on><sys_id>ee1c5b0d93d13110f7c69213548918be</sys_id><sys_mod_count>4</sys_mod_count><sys_name>html_script</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sys_ui_policy_action_ee1c5b0d93d13110f7c69213548918be</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 06:38:43</sys_updated_on><table>sn_learning_course_course</table><ui_policy display_value="To populate specific field">5efbd70d93d13110f7c69213548918e1</ui_policy><visible>false</visible></sys_ui_policy_action></record_update>]]></payload>
+        <payload_hash>2123804657</payload_hash>
+        <record_name>html_script</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 06:38:43</sys_created_on>
+        <sys_id>2282ef8193153110f7c692135489180c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18a9269d2310000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 06:38:43</sys_updated_on>
+        <type>UI Policy Action</type>
+        <update_guid>6a82ef811d15311098a2c045e2046c0b</update_guid>
+        <update_guid_history>6a82ef811d15311098a2c045e2046c0b:2123804657,55726f81b9153110a39bd3b77bbfbb6d:-9176044,c5b02f015c1531109b214bd04f88cc7b:2123804657,e1be13cdfad13110d9ad130ff441a979:-9176044,232cdb0db8d13110829061fcfad4ae0f:-1142931853</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 06:39:49</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_policy_action">sys_ui_policy_action</sys_db_object>
+        <sys_id>296f78a149a943d690f65ed708927e04</sys_id>
+        <sys_metadata>ee1c5b0d93d13110f7c69213548918be</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>html_script</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sys_ui_policy_action_ee1c5b0d93d13110f7c69213548918be</sys_update_name>
+        <sys_update_version display_value="sys_ui_policy_action_ee1c5b0d93d13110f7c69213548918be">2282ef8193153110f7c692135489180c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 06:39:49</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

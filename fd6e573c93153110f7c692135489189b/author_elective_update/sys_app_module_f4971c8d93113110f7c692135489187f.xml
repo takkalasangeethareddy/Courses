@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="COURSE">fbbe9f3c93153110f7c6921354891845</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>NEW</link_type>
+        <map_page/>
+        <mobile_title>Add Course</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>sn_learning_course_course</name>
+        <order/>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <roles>sn_learning_course.author_user</roles>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-13 15:53:37</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f4971c8d93113110f7c692135489187f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Add Course</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sys_app_module_f4971c8d93113110f7c692135489187f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 04:35:19</sys_updated_on>
+        <timeline_page/>
+        <title>Add Course</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_app_module_f4971c8d93113110f7c692135489187f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="COURSE">fbbe9f3c93153110f7c6921354891845</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>NEW</link_type><map_page/><mobile_title>Add Course</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>sn_learning_course_course</name><order/><override_menu_roles>false</override_menu_roles><query/><report/><roles>sn_learning_course.author_user</roles><sys_class_name>sys_app_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-13 15:53:37</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>f4971c8d93113110f7c692135489187f</sys_id><sys_mod_count>1</sys_mod_count><sys_name>Add Course</sys_name><sys_overrides/><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sys_app_module_f4971c8d93113110f7c692135489187f</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-14 04:35:19</sys_updated_on><timeline_page/><title>Add Course</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+        <payload_hash>-814882273</payload_hash>
+        <record_name>Add Course</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-14 04:35:19</sys_created_on>
+        <sys_id>8b46838d93913110f7c6921354891889</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18a91f8d7bf0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-14 04:35:19</sys_updated_on>
+        <type>Module</type>
+        <update_guid>c346838d26913110ff3ca39241e96a89</update_guid>
+        <update_guid_history>c346838d26913110ff3ca39241e96a89:-814882273,19f750cdc2113110fcd9bfad70183a7a:15967631</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Add Course">d914945e93d53110f7c692135489183a</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-17 12:49:05</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>9a41549b61c24d2c9ca5af3e07505190</sys_id>
+        <sys_metadata>f4971c8d93113110f7c692135489187f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Add Course</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sys_app_module_f4971c8d93113110f7c692135489187f</sys_update_name>
+        <sys_update_version display_value="sys_app_module_f4971c8d93113110f7c692135489187f">8b46838d93913110f7c6921354891889</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-17 12:49:05</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

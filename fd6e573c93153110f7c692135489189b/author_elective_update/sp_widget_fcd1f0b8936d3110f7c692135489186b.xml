@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[ ]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.parentcard{&#13;
+  padding-top: 1.2rem;&#13;
+  padding-bottom: 3.2rem;&#13;
+  row-gap: 2.4rem;&#13;
+  display: grid;&#13;
+  grid-template-columns: repeat(4, 1fr);&#13;
+  column-gap: 2rem;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>coursescard</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CoursesCard</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+
+	data.notes = [];
+	data.course = [];
+	var noteGR = new GlideRecord('sn_learning_course_course');
+
+	noteGR.orderByDesc('sys_created_on');
+	noteGR.query();
+	data.x = $sp.getWidget("Filter" );
+	//data.selectElement =   getElementById('#Level');
+	while (noteGR.next()) {
+		var noteObj = {};
+
+		noteObj.name = noteGR.getDisplayValue("name");
+		noteObj.description= noteGR.getDisplayValue("description");
+		noteObj.duration =noteGR.getDisplayValue("duration");
+		data.notes.push(noteObj);
+		data.course.push($sp.getWidget("Courses" , noteObj));
+	}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-25 09:23:51</sys_created_on>
+        <sys_id>fcd1f0b8936d3110f7c692135489186b</sys_id>
+        <sys_mod_count>87</sys_mod_count>
+        <sys_name>CoursesCard</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_fcd1f0b8936d3110f7c692135489186b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-27 13:56:41</sys_updated_on>
+        <template><![CDATA[
+<div class="parentcard">
+  
+    
+  <div>
+    <sp-widget  widget="c.data.x"></sp-widget>
+  </div>
+  <div   ng-repeat="x in c.data.course" >
+    <sp-widget  widget="x"></sp-widget>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_widget_fcd1f0b8936d3110f7c692135489186b</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[ ]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.parentcard{&amp;#13;
+  padding-top: 1.2rem;&amp;#13;
+  padding-bottom: 3.2rem;&amp;#13;
+  row-gap: 2.4rem;&amp;#13;
+  display: grid;&amp;#13;
+  grid-template-columns: repeat(4, 1fr);&amp;#13;
+  column-gap: 2rem;&amp;#13;
+}&amp;#13;
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;coursescard&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;CoursesCard&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+
+	data.notes = [];
+	data.course = [];
+	var noteGR = new GlideRecord('sn_learning_course_course');
+
+	noteGR.orderByDesc('sys_created_on');
+	noteGR.query();
+	data.x = $sp.getWidget("Filter" );
+	//data.selectElement =   getElementById('#Level');
+	while (noteGR.next()) {
+		var noteObj = {};
+
+		noteObj.name = noteGR.getDisplayValue("name");
+		noteObj.description= noteGR.getDisplayValue("description");
+		noteObj.duration =noteGR.getDisplayValue("duration");
+		data.notes.push(noteObj);
+		data.course.push($sp.getWidget("Courses" , noteObj));
+	}
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-09-25 09:23:51&lt;/sys_created_on&gt;&lt;sys_id&gt;fcd1f0b8936d3110f7c692135489186b&lt;/sys_id&gt;&lt;sys_mod_count&gt;87&lt;/sys_mod_count&gt;&lt;sys_name&gt;CoursesCard&lt;/sys_name&gt;&lt;sys_package display_value="LEARNING COURSES" source="sn_learning_course"&gt;fd6e573c93153110f7c692135489189b&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="LEARNING COURSES"&gt;fd6e573c93153110f7c692135489189b&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_fcd1f0b8936d3110f7c692135489186b&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-09-27 13:56:41&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[
+&lt;div class="parentcard"&gt;
+  
+    
+  &lt;div&gt;
+    &lt;sp-widget  widget="c.data.x"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+  &lt;div   ng-repeat="x in c.data.course" &gt;
+    &lt;sp-widget  widget="x"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-625268393</payload_hash>
+        <record_name>CoursesCard</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-27 13:56:41</sys_created_on>
+        <sys_id>cd73c06593253110f7c692135489180c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ad6ed77a20000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-27 13:56:41</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>c573c065dc253110ead20bd0a1d0ea0c</update_guid>
+        <update_guid_history>c573c065dc253110ead20bd0a1d0ea0c:-625268393,75634065f5253110792bd836d79ec799:1206763999,a4630065992531109677ca9690387942:2028568607,7210c861a62531102db6f7955a2f9396:-198365672,13fffb513c253110b004a3237f2f96b0:-1035464522,fcdaf75dcde13110d477fe468489df55:1027215112,b3baf39d99e13110e2c6fa66f7bd86e0:1900732055,31755b9da0a13110907631e02a115544:-43139542,3bf45b9d8ea13110b489218ec3d3a72f:-1479263862,35f41b9dc9a13110753429638320fba9:-1650712464,3eb4579dcea131104ea6879d44a35474:1530881497,f9a49f5d9ca1311061b9282d044ad10d:1276244238,aa349f5d07a1311004a7bfa0ad140c04:841713,00a25b1d85a13110a8c00d38fab7077b:-1983109764,b42b46c96025711081c97e953d16070a:-898771091,4b0b06c930257110a7ebe5dc90242960:-664002004,1e7a0e49a725711048102b57d23153f0:-1218080303,636085cd74617110ecb8cdece78f4634:46348368,9535e1745221711050347e720b17d783:-650722089,0c3525748d2171109d6364de2ef5714d:-1182067561,7515e174a82171103fd118b0bb725ecd:-1599586932,8b05a1745f217110f039c4f822dff113:392187079,a7f4a1740f21711007be3cb3be685ef5:959359849,4ef42d346b217110ded0abe0874068a7:1518299114,ac84a934f72171102a31e2d8730e5b94:384383040,3654a9349a2171109e58c4c85331ab83:-282399265,76442934d5217110a155c1d927563517:-1167305962,f6242534e42171107fa1220379309850:1480505762,a3146df05f217110c823f5a9cf4f48d0:1907036579,c7d32df0812171103c92e739747b2a7f:-927461370,6e536df043217110d9bb1ba8391576c4:-282399265,1013a5f0cf2171102c5440ea8ea2f6eb:1896556735,620369f0d3217110976b38f794a9be50:-1970485249,ece225f035217110e5a9cd190f5a166a:357157599,1ed2e1f0d1217110d82667533b431412:-8414973,bba2a1f05621711072a3e0989356c040:-771372099,899221f03f217110dd817d702073eb0c:1645874087,5152edb05f2171108e72dc2e79443247:781184398,5242adb065217110ad41b563da67a7f2:-1304804944,68426db0de217110c294ed1484fe15a1:735412049,a6322db0452171105dba4c557046cee8:-1169509709,18322db0e02171105d3e9caa91785a6c:-1837529674,e1222db03c21711045015ae84ed070c6:-809774515,d7122db09c217110604507f7abdba262:567411478,e012a9b097217110fb44bddc53519250:-731329546,f1f1a9b0a0217110c715813458611c34:1327157127,6111ad706a2171106235a539720bd9b5:698098307,f011ad70df21711081ca9cd4798f5a6b:6070058,2b016d708921711080832aaa4bc070fe:1005058865,68016d70ad217110e026422b846a7bdc:-1817638270,5ab0a570302171108b75f8e368a1bf03:655459140,2cb06970fe217110cd608c4b679749f8:1444800795,f2a0a5708b21711048839c509f19d611:-279956957,eb502570fe21711039d9ddd4bdb3cdbe:1444800795,55502570552171103170542dfebee195:-490674913,cb30a170e0217110b99c34d03adbdca5:-1468135361,997f19302e217110c50f55ba8bf7c512:-899838113,fb6fd53044217110e9d569c7a4de6a58:-1297651938,9f8e99fcb8ed3110b9a75aa0edd544ae:-899838113,b00715b866ed3110194c6e57a965f37d:271236315,a8d6dd7833ed3110f04c5a3ea7f165b8:-626305263,bd1211b441ed311063a575ac26c56a47:271236315,b7a19974d3ed3110dc2ad75e7ad02759:722813808,b54195f09bed31103f452a7655e05b61:-114824176,4ade41f0aced311058ec0aeeea1da860:1140080054,71da0130beed3110286d378d34ba5624:970821437,5b2a85fc25ad3110be85e9ff16d9c0cd:1246834053,b92a45fc32ad31100f902fd3b46f7413:208236166,d269cd3c0cad3110857cdd9a9dd605e7:-474750606,03440578c7ad31109148abae8cb1e2a8:-1180064024,f48d70741bad31108a077590710d2375:-193015161,7b6d70748ead31103c278b79c7225b6b:-775613751,ad2d3c341cad3110fb93c53a10576126:-794771772,ecea38b096ad3110ec58d4ade4c9dfa1:-711119662,5c8a34b003ad311071f28b392f797f9e:1529926920,144a74b0e8ad311035ff8f77acafcf6a:-1020473220,8e2a34b0bbad311053606a28ab1c1957:4017741,a7b97c7009ad31102424be42117d4cc0:-2037690749,39993c7036ad311070fcdfb8c0388ea1:215864589,3e89f4302cad3110137ca93d731cf0f3:1509100415,cec4f43c9b6d311028dd556662235411:-489311793,3454f03cd46d3110f624ef798acb7fad:671134682,8134f03c006d31105042564c6682b36a:-1238639789,1924b03c9f6d31103ca679a8f0a7abba:-1638694219,8024b03c396d3110ac882bc893eab673:1516945275,4814f4f8026d31109db87408027aeea1:393023211,59e270f8fb6d3110badb20d6cce16ef4:-263296726,fcd1f0b8cc6d3110536994a8c61b456d:-1228211194</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="CoursesCard">8c56047993a13110f7c6921354891810</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 08:47:40</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>045e29867bcb4db69244212bb5963db9</sys_id>
+        <sys_metadata>fcd1f0b8936d3110f7c692135489186b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CoursesCard</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sp_widget_fcd1f0b8936d3110f7c692135489186b</sys_update_name>
+        <sys_update_version display_value="sp_widget_fcd1f0b8936d3110f7c692135489186b">cd73c06593253110f7c692135489180c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 08:47:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

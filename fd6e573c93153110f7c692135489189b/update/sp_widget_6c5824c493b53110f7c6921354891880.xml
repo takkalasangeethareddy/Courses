@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script/>
+        <controller_as>c</controller_as>
+        <css>$label-primary-bg: #D1D2EE !default;
+$badge-bg: #656E81 !default;
+$panel-default-text: #181A1F !default;
+$border-primary: #8790A1 !default;
+$border-tertiary: #DADDE2 !default;
+$border-secondary: #ACB2BE !default;
+$brand-primary: #4F52BD !default;
+$background-primary: #FFFFFF !default;
+$text-white: #FFFFFF !default;
+$text-muted: #656E81 !default;
+$text-primary: #181A1F !default;
+$font-size-xs: 12px !default;
+$font-size-small: 14px !default;
+$font-size-lg: 16px !default;
+$sp-space--xxs: 2px !default;
+$sp-space--xs: 4px !default;
+$sp-space--sm: 8px !default;
+$sp-space--md: 12px !default;
+$sp-space--lg: 16px !default;
+$sp-space--xl: 24px !default;
+$border: #D3D6DC !default;
+
+/* Common styles */
+.btn.btn-link:disabled {
+  border: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+input[type="checkbox"] {
+  accent-color: $brand-primary;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mg-tp-lg {
+  margin-top: $sp-space--lg;
+}
+
+.mg-bt-lg {
+  margin-bottom: $sp-space--lg;
+}
+
+.mg-tp-emty {
+  margin-top: 0rem;
+}
+
+.mg-bt-emty {
+  margin-bottom: 0rem;
+}
+
+.mg-bt-md {
+  margin-bottom: $sp-space--md;
+}
+
+.mg-tp-xxl {
+  margin-top: 3.6rem;
+}
+
+.pd-all-xl {
+  padding: $sp-space--xl;
+}
+
+.mg-tp-sm {
+  margin-top: $sp-space--sm;
+}
+
+.mg-bt-sm {
+  margin-bottom: $sp-space--sm;
+}
+
+.padding-left-14{
+  padding-left: 14px;
+}
+
+.pd-initial {
+  padding: initial !important;
+}
+
+/* filter checkbox styles */
+.list-group {
+  margin-bottom: 0px;
+}
+
+.list-group-item {
+  border: none;
+  padding: 0px;
+}
+
+li.list-group-item:not(:last-child) {
+  margin-bottom: $sp-space--sm;
+}
+
+.filter-groups{
+	border: 1px solid transparent;
+}
+
+.list-group-item {
+  input[type="checkbox"] {
+    cursor:pointer;
+    position: absolute;
+    +label {
+      cursor:pointer;
+      padding-left: $sp-space--xl;
+      margin-bottom: 0px;
+      white-space: break-spaces;
+    }
+  }
+}
+
+.filter-checkbox {
+  margin-left: 0px !important;
+  position: unset !important;
+}
+.filter-checkbox-label {
+  padding-left: $sp-space--xs;
+}
+
+.filter-select-all {
+  padding: 0px;
+  margin-bottom: $sp-space--sm;
+}
+
+.filter-pill-display-flex {
+  gap: $sp-space--sm;
+  display: flex;
+  flex-wrap: wrap;	
+}
+
+.now-mobile-filter-pills {
+  display: inline-block;
+  margin: 5px;
+}
+
+/* Filter pill styles */
+.filter-pills-container {
+  padding: $sp-space--md $sp-space--xl;
+  background: $background-secondary;
+  border-bottom: 1px solid $border-tertiary;
+  align-items: center;
+  #filter-pills-group {
+    
+    .pill {
+      padding: $sp-space--xs $sp-space--sm;
+      font-weight: 400;
+      font-size: $font-size-small;
+      background: $background-primary !important;
+      box-sizing: border-box;
+      border: 1px solid $border-secondary;
+    }
+    .pill-text {
+      margin: 0px $sp-space--xs;
+    }
+  }
+  
+  .filter-pills-height {
+    max-height: 68px;
+    overflow: hidden;
+  }
+  
+  .now-mobile-filter-pills-height {
+    max-height: 72px;
+  }
+  
+  .filter-pill-actions {
+    padding-top: $sp-space--sm;
+  }
+  .filter-pills-view-all-hide {
+    visibility: hidden;
+  }
+}
+
+/* Desktop &amp; Tablet styles*/
+.filter-container {
+  border-top: 1px solid $border-tertiary;
+  border-bottom: 1px solid $border-tertiary;
+  background-color: $background-secondary;
+  padding: $sp-space--xs $sp-space--xl;
+  .filter-bar {
+    width: 70%;
+  }
+  .filter-group {
+    display: flex;
+    align-items: center;
+    color: $text-color;
+    gap: $sp-space--sm;
+    white-space:nowrap;
+    fieldset {
+      &gt;.btn-link {
+        &amp;:not(:focus) {
+          color: $text-secondary;
+        }
+      }
+      &gt;.btn-link[aria-expanded="true"] {
+        color: $link-hover-color;
+      }
+    }
+    .dropdown-menu {
+      min-width: 300px;
+      max-width: 300px;
+      padding: $sp-space--lg;
+      .conditional-margin {
+        margin-top: $sp-space--sm;
+      }
+      .filter-section {
+        h5 {
+          margin-top: 0;
+          margin-bottom: $sp-space--md;
+        }
+        hr[aria-hidden="false"] {
+          margin-top: $sp-space--lg;
+          margin-bottom: $sp-space--lg;
+        }
+      }
+    }
+    .mh-filter-drop-downs{
+      z-index: 10;
+    }
+  }
+}
+
+.sn-manager-hub-filter {
+  .now-mobile-button-radius {
+    border-radius: $sp-space--xs !important;
+  }
+}
+
+/* Mobile styles*/
+.mh-mobile-filter-container {
+  border-top: 1px solid $border-tertiary;
+  border-bottom: 1px solid $border-tertiary;
+  background-color: $background-secondary;
+  padding: $sp-space--md $sp-space--xl;
+  
+  .mh-mobile-filter-btn-container {
+    .btn-lg {
+      font-size: $font-size-lg;
+    }
+    .btn-default {
+      color: $text-primary;
+      border-color: $border;
+    }
+  }
+  
+  .modal {
+    .modal-header {
+      padding: $sp-space--xl;
+      padding-bottom: $sp-space--lg;
+      .close {
+      	color: $text-primary;
+      }
+    }
+    .modal-body {
+      padding: $sp-space--xl;
+      padding-top: $sp-space--sm;
+    }
+    .modal-dialog {
+      width: 100%;
+      max-width: none;
+    }
+    .modal-footer {
+    	position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+  .panel-default {
+    margin-top: $sp-space--lg;
+    margin-bottom: $sp-space--lg;
+  }
+  .panel-sub-title-filter {
+    color: $text-muted;
+    margin-top: 0rem;
+    margin-bottom: $sp-space--sm;
+  }
+  .panel-anchor-color {
+    color: $text-primary;
+  }
+}
+
+/* Panel styles */
+.panel-group .panel {
+  border: none;
+  box-shadow: none;
+}
+
+.panel-default&gt; .panel-heading +  .panel-collapse &gt; .panel-body {
+  border-top-color: $text-white;
+  padding: 0rem;
+}
+
+.panel-default&gt;.panel-heading {
+  padding: 0rem 0rem;
+  background-color: $background-primary;
+}
+
+.panel-heading {
+  .accordion-toggle {
+    &amp;:after {
+      font-family: "FontAwesome";
+      content: "\f077";
+      float: right;
+      font-size: $sp-space--lg;
+    }
+  }
+  .accordion-toggle.collapsed {
+    &amp;:after {
+      content: "\f078";
+    }
+  }
+}
+
+/* Modal Styles */
+.modal {
+  .modal-dialog {
+    overflow-y: initial !important;
+    height: 100%;
+    padding: 0rem;
+    margin: 0rem;
+    .modal-content {
+      height: 100%;
+      border-radius: 0;
+    }
+    .modal-body {
+      max-height: calc(100vh - 135px);
+      overflow-y: auto;
+    }
+    .modal-footer:before, .modal-footer:after {
+      content: none;
+    }
+  }
+}
+
+.more-filters-container {
+  margin-left: 25px;
+}
+
+.modal-flyout.fade.in .modal-dialog {
+  transform: translate(0, 0);
+}
+
+.modal-flyout.fade .modal-dialog {
+  margin: 0 0 0 auto;
+  transform: translate(100%, 0);
+}
+
+.flyout-template-container {
+	height: 100%;
+}
+
+.flyout-container {
+  height: 100%;
+
+  h3, h4 {
+    display: inline-block;
+  }
+ .panel-body-padding{
+    padding-left: 0;
+  }
+  .modal-content {
+    height: 100%;
+    border-radius: 0;
+
+    .modal-header {
+      padding: $sp-space--lg $sp-space--xl;
+      margin:0
+    }
+
+  }
+  .modal-body {
+    padding: $sp-space--xl $sp-space--sm;
+    height: 100% !important;
+    max-height: calc(100% - 135px) !important;
+
+    .divider {
+      margin: $sp-space--xl 0px;
+      border-top: 0.1rem solid $border;
+    }
+    .panel-title-filter{
+      margin-top: 0rem;
+      margin-bottom: 0rem;
+    }
+    .panel-sub-title-filter{
+      margin-top: $sp-space--lg;
+      margin-bottom: $sp-space--md;
+      color: $text-muted;
+      font-size: $sp-space--lg;
+    }
+    .panel {
+      box-shadow:none;
+    }
+    .panel-heading {
+      padding: 0rem;
+    }
+    .panel-body {
+      margin-bottom: $sp-space--sm;
+    }
+    .filter-checkbox-label {
+      margin: 0rem;
+    }
+    .select-option-container {
+      margin-bottom: $sp-space--sm;
+    }
+    .filter-checkbox {
+      margin: 0rem;
+    }
+  }
+}
+
+.filter-footer-container {
+  text-align: left;
+
+  .filter-footer {
+    margin-top: 0rem;
+  }
+  .clear-filter-button {
+    padding: 0;
+    color: $brand-primary;
+  }
+  
+  position: sticky;
+  bottom: 0;
+  background-color: inherit;
+  
+}
+
+@media (min-width : 768px) and (max-width: 1200px) {
+  .filter-bar {
+    width:100% !important;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>clonefilter</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+		controller.currentFocusedElementIndex = {};
+		controller.previousDropdown = '';
+	
+    $(element).on('keydown', '.dropdown-menu', function(e) {
+        if (e.keyCode === 27) {
+            var dropdownToggle = $(e.target).parents('.dropdown').children('.dropdown-toggle');
+            dropdownToggle.dropdown('toggle');
+            dropdownToggle.focus();
+        }
+    });
+
+    setTimeout(function() {
+        $(document).on('click', '.dropdown-menu', function(e) {
+            var attrValue = e.target.getAttribute("data-filter-grp-apply");
+            if (attrValue === 'filter-desktop-apply') {
+                var focusElementId = e.target.getAttribute("data-filter-grp-apply-id");
+                angular.element(document.getElementById("filter-" + focusElementId)).focus();
+            } else
+                e.stopPropagation();
+        });
+
+        $(document).on('hide.bs.dropdown', '.filter-group', function(event) {
+            var filterGroupId = event.relatedTarget.getAttribute('data-filter-grp-id');
+						clearNonAppliedFilters(filterGroupId);
+            scope.$digest();
+        });
+
+        $(document).on('hide.bs.modal', '#mh-mobile-filter-modal', function() {
+            handleDraftFilters();
+        });
+
+        $(document).on('hidden.bs.modal', '#mh-flyout-filter-modal', function() {
+            handleDraftFilters();
+        });
+
+    }, 0);
+
+    angular.element(window).on("resize", function() {
+        if (window.innerWidth < 768)
+            controller.view = 'mobile';
+        else {
+            $(".modal-backdrop").hide();
+            controller.view = 'desktop';
+        }
+    });
+
+    controller.focusFilter = function(event, filter) {
+        if (event.keyCode === 13) {
+            if (filter)
+                controller.clearPill(filter);
+            else
+                controller.clearAllFilters();
+            $(".filter-group > fieldset:first > button").focus();
+        }
+    };
+    angular.element(window).on('resize', controller.adaptFilters);
+
+    // Circular tabbing on the popup
+    controller.handleAccessibilityInFlyout = function(e) {
+        var target = e.target;
+        var shiftPressed = e.shiftKey;
+        if (e.keyCode === 9) {
+            var closeButton = angular.element(document.getElementById('mh-flyout-close-btn'));
+            var cancelButton = angular.element(document.getElementById('mh-flyout-cancel-btn'));
+            var applyButton = angular.element(document.getElementById('mh-flyout-apply-btn'));
+            if ($(target).is(closeButton)) {
+                if (shiftPressed) {
+                    if (!applyButton[0].disabled)
+                        applyButton.focus();
+                    else
+                        cancelButton.focus();
+                    e.preventDefault();
+                }
+                return true;
+            } else if ($(target).is(cancelButton) && applyButton[0].disabled) {
+                if (!shiftPressed) {
+                    closeButton.focus();
+                    e.preventDefault();
+                }
+            } else if ($(target).is(applyButton)) {
+                if (!shiftPressed) {
+                    closeButton.focus();
+                    e.preventDefault();
+                }
+            }
+            return false;
+        }
+        return true;
+    };
+
+    function handleDraftFilters() {
+        if (controller.selectedCount === 0)
+            controller.enableClearBtn = false;
+        controller.enableApplyBtn = false;
+        controller.data.filterData.forEach(function(filterGroup) {
+            updateDraftFilters(filterGroup);
+        });
+    }
+
+    function updateDraftFilters(filterGroup) {
+        filterGroup.filterSources.forEach(function(filterSource) {
+            var sourceId = filterSource.filterSourceId;
+            filterSource.filterValues.forEach(function(filter) {
+                var filterAdded = controller.checkIfFilterAlreadyAdded(filter.id, sourceId);
+                if (!filterAdded && filter.selected)
+                    filter.selected = false;
+                else if (filterAdded && !filter.selected)
+                    filter.selected = true;
+            });
+            filterGroup.enableApplyBtn = false;
+            controller.updateSelectAllState(filterSource);
+        });
+    }
+	
+	
+	
+	// Keyboard navigation for dropdowns
+	$(element).on('keydown', '.mh-filter-drop-downs', function(e) {
+		var filterGroupId = e.target.dataset.filterGrpId || e.target.dataset.filterGrpApplyId;
+		controller.previousDropdown = filterGroupId;
+		var dropDownClass = '.mh-filter-drop-downs-' + filterGroupId;
+		var elementsInDropdown = $(dropDownClass).find("[tabindex='-1']");
+		if(controller.currentFocusedElementIndex[filterGroupId] === undefined)
+			controller.currentFocusedElementIndex[filterGroupId] = 0;
+
+		if ([38, 40].indexOf(e.keyCode) !== -1) {
+			if(e.keyCode === 38) {
+				// UP Arrow
+				nextIndex = controller.currentFocusedElementIndex[filterGroupId] ? (controller.currentFocusedElementIndex[filterGroupId] - 1) : elementsInDropdown.length - 1;
+				controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex);
+				elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+			} else if(e.keyCode === 40) {
+				// Down Arrow
+				elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+				nextIndex = (controller.currentFocusedElementIndex[filterGroupId] + 1) % elementsInDropdown.length;
+				controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex, 'down');
+			}
+		}
+
+		
+    return true;
+	});
+	
+	$(element).on('keydown', '.mh-filter-drop-down-button', function(e) {
+		setTimeout(function() {
+			clearNonAppliedFilters(controller.previousDropdown);
+			scope.$digest();
+		}, 0);
+		
+		setTimeout(function() {
+			var filterGroupId = e.target.dataset.filterGrpId;
+			var dropDownClass = '.mh-filter-drop-downs-' + filterGroupId;
+			var elementsInDropdown = $(dropDownClass).find("[tabindex='-1']");
+			if(controller.previousDropdown) {
+				controller.currentFocusedElementIndex[controller.previousDropdown] = 0;
+			}
+			
+			if(controller.currentFocusedElementIndex[filterGroupId] === undefined)
+				controller.currentFocusedElementIndex[filterGroupId] = 0;
+
+			if (e.keyCode === 40) {
+					// Down Arrow
+					elementsInDropdown[controller.currentFocusedElementIndex[filterGroupId]].focus();
+				
+					var nextIndex = (controller.currentFocusedElementIndex[filterGroupId] + 1) % elementsInDropdown.length;
+					controller.currentFocusedElementIndex[filterGroupId] = findNextEnabledElementIndex(elementsInDropdown, nextIndex, 'down');
+			}
+			
+			return true;
+		}, 0);
+	});
+	
+	function checkIfDisabled(element) {
+		return element.disabled;
+	}
+	
+	function findNextEnabledElementIndex(elementList, index, direction) {
+		while(checkIfDisabled(elementList[index])) {
+			if(direction === 'down')
+				index = (index + 1) % elementList.length;
+			else
+				index = index ? (index - 1) : elementList.length - 1;
+		}
+		
+		return index;
+	}
+	
+	function clearNonAppliedFilters(filterGroupId) {
+		var filterGroup = controller.getFilterGroup(controller.data.filterData, filterGroupId);
+		if (filterGroup.selectedCount === 0)
+			filterGroup.enableClearBtn = false;
+		else
+			filterGroup.enableClearBtn = true;
+		filterGroup.enableApplyBtn = false;
+		updateDraftFilters(filterGroup);
+	}
+}]]></link>
+        <name>cloneFilter</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[ ]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-10-05 11:02:34</sys_created_on>
+        <sys_id>6c5824c493b53110f7c6921354891880</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>cloneFilter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_6c5824c493b53110f7c6921354891880</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-05 11:05:32</sys_updated_on>
+        <template><![CDATA[<div ng-init="c.init()" class="sn-manager-hub-filter">
+  <div ng-include="'sn-mh-filter-mobile'" ng-if="c.view === 'mobile'"></div>
+  <div ng-include="'sn-mh-filter-desktop'" ng-if="c.view === 'desktop'"></div>
+  <div class="modal fade modal-flyout" id="mh-flyout-filter-modal">
+    <div class="modal-dialog modal-lg" ng-if="c.toggleFlyout">
+      <div class="flyout-template-container" ng-include="'sn-mh-filter-flyout'"></div>
+    </div>
+  </div>
+</div>
+<div class="filter-pills-container" ng-show="c.filterPills.length">
+  <div class="{{ c.view === 'mobile' && c.filterPillsHeight > 68 ? 'filter-pills-height' : '' }} {{ c.data.isOnNowMobileApp ? '' : 'filter-pill-display-flex' }}" ng-class="{'now-mobile-filter-pills-height': c.data.isOnNowMobileApp && (c.filterPillsHeight > 68)}" id="filter-pills-group" role="group" aria-label="${Currently filtered by}">
+    <!-- Applied Filters -->
+    <div ng-repeat="filter in c.filterPills" class="{{ c.data.isOnNowMobileApp ? 'now-mobile-filter-pills' : '' }}">
+      <div class="pill rounded">
+        <span data-toggle="tooltip" data-placement="top" title="{{filter.value}}" class="pill-text text-overflow-ellipsis"> {{filter.value}} </span>
+        <span role="button" ng-click="c.clearPill(filter)" aria-label="{{filter.clearLabel}}" tabindex="0" ng-keydown="c.focusFilter($event, filter)">
+          <i class="fa fa-times pointer" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <button ng-if="c.view === 'desktop'" class="btn btn-link btn-sm" ng-click="c.clearAllFilters()" aria-label="${Clear applied filters}" ng-keydown="c.focusFilter($event)">${Clear all}</button>
+  </div>
+  <div ng-if="c.view === 'mobile'" class="filter-pill-actions display-flex space-between">
+    <button ng-click="c.filterPillsHeight=0" class="btn btn-link {{c.filterPillsHeight > 68 ? '' : 'filter-pills-view-all-hide'}} {{ c.data.isOnNowMobileApp ? 'now-mobile-button-radius' : '' }}" aria-label="${View all}">${View all}</button>     
+    <button class="btn btn-link {{ c.data.isOnNowMobileApp ? 'now-mobile-button-radius' : '' }}" ng-click="c.clearAllFilters()" aria-label="${Clear applied filters}" ng-keydown="c.focusFilter($event)">${Clear all}</button>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function(spUtil) {
+	/* widget controller */
+	var c = this;
+	var obj ={};
+	c.obj=obj;
+	c.data.state = "";
+	c.data.level = "";
+	c.data.sol = c.data.course;
+	console.log(c.data.sol);
+	$rootScope.$on('State', function (event, args) {
+		c.obj.state = args;
+		console.log(c.obj.state);
+		c.data.state = c.obj.state;
+		filterCourses();
+	});
+	$rootScope.$on('Level', function (event, args) {
+		c.obj.value = args;
+		console.log(c.obj.value);
+		c.data.level = c.obj.value;
+		filterCourses();
+	});
+	var filterCourses = function(){
+		c.data.sol = [];
+		c.data.course.forEach(function (i) {
+			if((c.data.state!="" && i.values.state != c.data.state) || (c.data.level!="" && i.values.level != c.data.level) ){
+				i.show='false';
+			}
+			else  
+			{
+				i.show ='true';
+				c.data.sol.push(i);
+			}
+			console.log(i );
+		});
+		console.log(c.data.sol);
+		pagination();
+	};	 
+	var pagination= function(){	
+		c.data.itemsPerPage = 8; // Number of items per page
+		c.data.currentPage = 1; // Current page
+
+		c.data.paginatedData = function() {
+			var startIndex = (c.data.currentPage - 1) * c.data.itemsPerPage;
+			var endIndex = startIndex + c.data.itemsPerPage;
+			return c.data.sol.slice(startIndex, endIndex);
+		};
+
+		c.data.onPageChange = function(pageNumber) {
+			c.data.currentPage = pageNumber;
+			c.data.pages = c.data.paginatedData();
+		};
+
+		c.data.getPages = function() {
+			var totalPages = c.data.getTotalPages();
+			return Array.from({ length: totalPages }, function(_, index) {
+				return index + 1;
+			});
+		};
+		c.data.pages = c.data.paginatedData();
+		c.data.getTotalPages = function() {
+			return Math.ceil( c.data.sol.length /  c.data.itemsPerPage);
+		};
+		console.log(c.data.itemsPerPage);
+		console.log(c.data.currentPage);
+
+		console.log( c.data.paginatedData());
+		console.log( "ndcwkjnv"+ c.data.pages);
+	};
+	pagination();
+	console.log(c.data.sol);
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.filters{
+  display:  flex;
+  gap:   30px;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}
+.coursecard{
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 1.2rem;
+  padding-bottom: 3.2rem;
+  row-gap: 2.4rem;
+  display:  flex;
+  align-items: flex-start;
+  column-gap: 2rem;
+}
+.page{
+.pagination{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  display: flex;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  .page-link{
+    color: #454D5B;
+    text-align: center;
+    /* View controls/pagination active state */
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 20px;
+    height: 16px;
+    padding: 10px;
+  }
+
+}
+ .selectedPage{
+  border-radius: 4px;
+background: var(--background-background-tertiary, #E4E6EA);
+}
+.disabled {
+  pointer-events: none;
+  color: #1A1110  
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>newcoursewidget</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>NewCoursewidget</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  data.course = [];
+	data.sol = [];
+	data.itemsPerPage = 0;
+	data.currentPage = 0;
+	data.paginatedData = 0;
+	data.onPageChange = 0;
+	data.getPages = 0;
+	data.pages = 0;
+	data.pagination=0;
+	var noteGR = new GlideRecord('sn_learning_course_course');
+	noteGR.orderByDesc('sys_created_on');
+	noteGR.query();
+	data.stateFilter = $sp.getWidget("statefilter" );
+	data.levelFilter = $sp.getWidget("_levelfilter" );
+	while (noteGR.next()) {
+		var noteObj = {};
+		var sol = {};
+		noteObj.name = noteGR.getDisplayValue("name");
+		noteObj.description= noteGR.getDisplayValue("description");
+		noteObj.duration =noteGR.getDisplayValue("duration");
+		noteObj.level = noteGR.getDisplayValue("level");
+		noteObj.state = noteGR.getDisplayValue("state");
+		noteObj.type = noteGR.getDisplayValue("type");
+		noteObj.htnml = noteGR.getDisplayValue("html");
+		noteObj.url = noteGR.getDisplayValue("url");
+		sol.widget = $sp.getWidget("Courses" , noteObj);
+		sol.values = noteObj;
+		sol.show = "true";
+		data.course.push(sol);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 16:54:06</sys_created_on>
+        <sys_id>69a5b93993653110f7c692135489188e</sys_id>
+        <sys_mod_count>244</sys_mod_count>
+        <sys_name>NewCoursewidget</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_69a5b93993653110f7c692135489188e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-19 06:07:34</sys_updated_on>
+        <template><![CDATA[<div class="panel">
+  <div class="panel-body">
+    <div class="mainCard">
+      <div class="filters">
+        <div>
+          <sp-widget  widget="c.data.levelFilter"></sp-widget>
+        </div>
+        <div>
+          <sp-widget  widget="c.data.stateFilter"></sp-widget>
+        </div>
+      </div>
+      <div ng-model="c.data.pages" class="coursecard">
+        <div  ng-repeat="x in c.data.pages"> <sp-widget  widget="x.widget"></sp-widget>  </div>
+      </div>
+      <div class="page" aria-label="Page navigation">
+        <div class="pagination">
+          <div class="page-item"    ng-class="{ 'disabled': c.data.currentPage === 1 }">
+            <a class="page-link" href="#"  ng-click="c.data.onPageChange(c.data.currentPage - 1)" aria-label="Previous">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" color="#151920">
+                <path d="M6.85355 13.1464C7.04882 13.3417 7.04882 13.6583 6.85355 13.8536C6.65829 14.0488 6.34171 14.0488 6.14645 13.8536L1.14645 8.85355C0.951184 8.65829 0.951184 8.34171 1.14645 8.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L2.70711 8L14.5 8C14.7761 8 15 8.22386 15 8.5C15 8.77614 14.7761 9 14.5 9L2.70711 9L6.85355 13.1464Z" fill="#151920"/>
+              </svg>
+            </a>
+          </div>
+          <div class="page-item" ng-class="{ 'selectedPage': c.data.currentPage === x }" ng-repeat="x in  c.data.getPages()">
+            <a class="page-link" href="#" ng-click="c.data.onPageChange(x)"> {{ x }} </a>
+          </div>
+          <div class="page-item"   ng-class="{ 'disabled': c.data.currentPage === c.data.getTotalPages() }">
+            <a class="page-link" href="#" ng-click="c.data.onPageChange(c.data.currentPage + 1)" aria-label="Next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M9.14645 13.1464C8.95118 13.3417 8.95118 13.6583 9.14645 13.8536C9.34171 14.0488 9.65829 14.0488 9.85355 13.8536L14.8536 8.85355C15.0488 8.65829 15.0488 8.34171 14.8536 8.14645L9.85355 3.14645C9.65829 2.95118 9.34171 2.95118 9.14645 3.14645C8.95119 3.34171 8.95119 3.65829 9.14645 3.85355L13.2929 8L1.5 8C1.22386 8 1 8.22386 1 8.5C1 8.77614 1.22386 9 1.5 9L13.2929 9L9.14645 13.1464Z" fill="#454D5B"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>

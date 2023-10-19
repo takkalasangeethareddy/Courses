@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="DELETE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>courses</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 14:24:30</sys_created_on>
+        <sys_id>4240dda793dd3150f7c6921354891859</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>courses</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_page_4240dda793dd3150f7c6921354891859</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-21 14:24:30</sys_updated_on>
+        <title>Courses</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="DELETE" query="documentkey=4240dda793dd3150f7c6921354891859"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_page_4240dda793dd3150f7c6921354891859</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page"><sp_page action="INSERT_OR_UPDATE"><category>custom</category><css/><draft>false</draft><dynamic_title_structure/><human_readable_url_structure/><id>courses</id><internal>false</internal><omit_watcher>false</omit_watcher><public>false</public><roles/><seo_script/><short_description/><sys_class_name>sp_page</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-21 14:24:30</sys_created_on><sys_id>4240dda793dd3150f7c6921354891859</sys_id><sys_mod_count>0</sys_mod_count><sys_name>courses</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sp_page_4240dda793dd3150f7c6921354891859</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-21 14:24:30</sys_updated_on><title>Courses</title><use_seo_script>false</use_seo_script></sp_page><sys_translated_text action="delete_multiple" query="documentkey=4240dda793dd3150f7c6921354891859"/></record_update>]]></payload>
+        <payload_hash>-1589803402</payload_hash>
+        <record_name>courses</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 14:24:30</sys_created_on>
+        <sys_id>8640dda793dd3150f7c692135489185c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ab820c7390000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-21 14:24:30</sys_updated_on>
+        <type>Page</type>
+        <update_guid>ca40dda7dbdd3150a13cd25596137b5b</update_guid>
+        <update_guid_history>ca40dda7dbdd3150a13cd25596137b5b:-1589803402</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="courses">26050f6593213110f7c69213548918cc</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 04:02:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_page">sp_page</sys_db_object>
+        <sys_id>7dbb784b255c4b25b384963d5f3d1f79</sys_id>
+        <sys_metadata>4240dda793dd3150f7c6921354891859</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>courses</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sp_page_4240dda793dd3150f7c6921354891859</sys_update_name>
+        <sys_update_version display_value="sp_page_4240dda793dd3150f7c6921354891859">8640dda793dd3150f7c692135489185c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 04:02:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
