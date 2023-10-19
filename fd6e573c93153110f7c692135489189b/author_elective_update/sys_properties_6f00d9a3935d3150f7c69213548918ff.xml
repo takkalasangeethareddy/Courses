@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="DELETE">
+        <choices/>
+        <description>If true, portal css would be in rem units</description>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>glide.service_portal.resize_text.course.enable_rem_conversion</name>
+        <read_roles/>
+        <suffix/>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 14:23:31</sys_created_on>
+        <sys_id>6f00d9a3935d3150f7c69213548918ff</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.service_portal.resize_text.course.enable_rem_conversion</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sys_properties_6f00d9a3935d3150f7c69213548918ff</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-21 14:23:31</sys_updated_on>
+        <type>boolean</type>
+        <value>true</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="DELETE" query="documentkey=6f00d9a3935d3150f7c69213548918ff"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_properties_6f00d9a3935d3150f7c69213548918ff</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties"><sys_properties action="INSERT_OR_UPDATE"><choices/><description>If true, portal css would be in rem units</description><ignore_cache>true</ignore_cache><is_private>false</is_private><name>glide.service_portal.resize_text.course.enable_rem_conversion</name><read_roles/><suffix/><sys_class_name>sys_properties</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-21 14:23:31</sys_created_on><sys_id>6f00d9a3935d3150f7c69213548918ff</sys_id><sys_mod_count>0</sys_mod_count><sys_name>glide.service_portal.resize_text.course.enable_rem_conversion</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sys_properties_6f00d9a3935d3150f7c69213548918ff</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-21 14:23:31</sys_updated_on><type>boolean</type><value>true</value><write_roles/></sys_properties><sys_translated_text action="delete_multiple" query="documentkey=6f00d9a3935d3150f7c69213548918ff"/></record_update>]]></payload>
+        <payload_hash>-320620851</payload_hash>
+        <record_name>glide.service_portal.resize_text.course.enable_rem_conversion</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 14:23:31</sys_created_on>
+        <sys_id>a3001da3935d3150f7c6921354891804</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ab81fdfc40000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-21 14:23:31</sys_updated_on>
+        <type>System Property</type>
+        <update_guid>e7001da3615d31501ef5858e53734703</update_guid>
+        <update_guid_history>e7001da3615d31501ef5858e53734703:-320620851</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 04:03:23</sys_created_on>
+        <sys_db_object display_value="" name="sys_properties">sys_properties</sys_db_object>
+        <sys_id>0713145b4a58407980d3f7bf57decc09</sys_id>
+        <sys_metadata>6f00d9a3935d3150f7c69213548918ff</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.service_portal.resize_text.course.enable_rem_conversion</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sys_properties_6f00d9a3935d3150f7c69213548918ff</sys_update_name>
+        <sys_update_version display_value="sys_properties_6f00d9a3935d3150f7c69213548918ff">a3001da3935d3150f7c6921354891804</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 04:03:23</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

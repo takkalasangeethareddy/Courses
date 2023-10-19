@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row">
+    <sp_row action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <sp_column/>
+        <sp_container display_value="Courses - Container 1">0d69d4b793113110f7c692135489185a</sp_container>
+        <sys_class_name>sp_row</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-25 10:05:24</sys_created_on>
+        <sys_id>955b34f093ad3110f7c6921354891862</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_row_955b34f093ad3110f7c6921354891862</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-25 10:05:24</sys_updated_on>
+    </sp_row>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_row_955b34f093ad3110f7c6921354891862</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row"><sp_row action="INSERT_OR_UPDATE"><class_name/><order>1</order><sp_column/><sp_container display_value="Courses - Container 1">0d69d4b793113110f7c692135489185a</sp_container><sys_class_name>sp_row</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-25 10:05:24</sys_created_on><sys_id>955b34f093ad3110f7c6921354891862</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sp_row_955b34f093ad3110f7c6921354891862</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-25 10:05:24</sys_updated_on></sp_row></record_update>]]></payload>
+        <payload_hash>-1667022299</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-25 10:05:24</sys_created_on>
+        <sys_id>115b34f093ad3110f7c6921354891865</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18acbccff260000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-25 10:05:24</sys_updated_on>
+        <type>Row</type>
+        <update_guid>555b34f03aad311080f260b06583ff64</update_guid>
+        <update_guid_history>555b34f03aad311080f260b06583ff64:-1667022299</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">a6050f6593213110f7c69213548918b4</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 04:02:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_row">sp_row</sys_db_object>
+        <sys_id>42cc31d61d064a00ad7b115814e5ada4</sys_id>
+        <sys_metadata>955b34f093ad3110f7c6921354891862</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sp_row_955b34f093ad3110f7c6921354891862</sys_update_name>
+        <sys_update_version display_value="sp_row_955b34f093ad3110f7c6921354891862">115b34f093ad3110f7c6921354891865</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 04:02:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

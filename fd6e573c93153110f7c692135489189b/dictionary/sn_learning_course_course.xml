@@ -16,7 +16,7 @@
         <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" choice="3" choice_field="state" choice_table="sn_learning_course_course" default="Draft" label="State" mandatory="true" max_length="20" name="state" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Draft" value="Draft"/>
-                <element inactive_on_update="false" label="Published" value="published"/>
+                <element inactive_on_update="false" label="Published" value="Published"/>
                 <element inactive_on_update="false" label="Retired" value="Retired"/>
             </choice>
         </element>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+	/* widget controller */
+	var c = this;
+	c.obj = {};
+	c.obj.value = " ";
+	c.obj.state = " ";
+	$rootScope.$on('Level', function (event, args) {
+		c.obj.value = args;
+		console.log(c.obj.value);
+		c.data.level = c.obj.value;
+		c.server.update();
+	});
+	$rootScope.$on('State', function (event, args) {
+		c.obj.state = args;
+		console.log(c.obj.state);
+		c.data.state = c.obj.state;
+		c.server.update();
+	});
+	console.log(c.data.course);
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css> .filter{
+   display: flex;
+   gap: 30px;
+   align-items: flex-start;
+}
+.coursecard{
+  flex-wrap: wrap;
+  padding-top: 1.2rem;
+  padding-bottom: 3.2rem;
+  row-gap: 2.4rem;
+  display:  flex;
+  align-items: flex-start;
+  column-gap: 2rem;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.2rem;
+    vertical-align: middle;
+    border-top: 0.4rem dashed;
+    border-top: .4rem solid \9;
+    border-right: 0.4rem solid transparent;
+    border-left: 0.4rem solid transparent;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>learningcourse</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>LearningCourse</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	
+	/*var notes = {};
+	var noteGRChoicelevel = new GlideRecord('sys_choice');
+	noteGRChoicelevel.addEncodedQuery("nameLIKEcourse^elementSTARTSWITHlevel");
+	noteGRChoicelevel.query();	
+	notes.type = "Levels";
+	notes.value = [];
+	while(noteGRChoicelevel.next())
+	{
+		notes.value.push(noteGRChoicelevel.getDisplayValue('value'));
+	}  
+	data.levelFilter = $sp.getWidget("_levelfilter" ,notes );
+	
+	/*
+	var noteGRChoiceState = new GlideRecord('sys_choice');
+	noteGRChoiceState.addEncodedQuery("nameLIKEcourse^elementSTARTSWITHstate");
+	noteGRChoiceState.query();
+	notes = {};
+	notes.value = [];
+	i=0;
+	notes.type = "State";
+	while(noteGRChoiceState.next())
+	{
+		notes.value.push(noteGRChoiceState.getDisplayValue('value'));
+	}  
+	data.stateFilter = $sp.getWidget("_levelfilter" ,notes);
+	
+	*/
+	
+	
+	data.course = [];
+	var noteGR = new GlideRecord('sn_learning_course_course');
+	noteGR.orderByDesc('sys_created_on');
+	if(input && !gs.nil(input.level)) noteGR.addQuery('level',  input.level);
+	if(input && !gs.nil(input.state)) noteGR.addQuery('state',  input.state);
+	noteGR.query();
+	data.stateFilter = $sp.getWidget("statefilter" );
+	data.levelFilter = $sp.getWidget("_levelfilter" );
+	while (noteGR.next()) {
+		var noteObj = {};
+		noteObj.name = noteGR.getDisplayValue("name");
+		noteObj.description= noteGR.getDisplayValue("description");
+		noteObj.duration =noteGR.getDisplayValue("duration");
+		noteObj.level = noteGR.getDisplayValue("level");
+		data.course.push($sp.getWidget("Courses" , noteObj));
+	}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 04:21:10</sys_created_on>
+        <sys_id>5c59076993213110f7c69213548918b9</sys_id>
+        <sys_mod_count>117</sys_mod_count>
+        <sys_name>LearningCourse</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_5c59076993213110f7c69213548918b9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-07 09:05:52</sys_updated_on>
+        <template><![CDATA[<div class="panel">
+  <div class="panel-body">
+    <div class="mainCard">
+      <div class="filter" style = "display: flex;gap: 20px";>
+        <div>
+          <sp-widget  widget="c.data.levelFilter"></sp-widget>
+        </div>
+        <div>
+          <sp-widget  widget="c.data.stateFilter"></sp-widget>
+        </div>
+      </div>
+
+      <div class="coursecard">
+        <div   ng-repeat="x in c.data.course" >
+          <sp-widget  widget="x"></sp-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<span class="caret"></span>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="DELETE">
+        <sp_angular_provider display_value="mhSkillMatrixService">7e697251435431100ad0812fb9b8f20a</sp_angular_provider>
+        <sp_widget display_value="Copy of Manager Hub Skill Filter">5e7ec65993297110f7c6921354891875</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-27 05:25:36</sys_created_on>
+        <sys_id>5e7ec69993297110f7c69213548918bf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mhSkillMatrixService.Copy of Manager Hub Skill Filter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_5e7ec69993297110f7c69213548918bf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-27 05:25:36</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>m2m_sp_ng_pro_sp_widget_5e7ec69993297110f7c69213548918bf</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget"><m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE"><sp_angular_provider display_value="mhSkillMatrixService">7e697251435431100ad0812fb9b8f20a</sp_angular_provider><sp_widget display_value="Copy of Manager Hub Skill Filter">5e7ec65993297110f7c6921354891875</sp_widget><sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-27 05:25:36</sys_created_on><sys_id>5e7ec69993297110f7c69213548918bf</sys_id><sys_mod_count>0</sys_mod_count><sys_name>mhSkillMatrixService.Copy of Manager Hub Skill Filter</sys_name><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>m2m_sp_ng_pro_sp_widget_5e7ec69993297110f7c69213548918bf</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-27 05:25:36</sys_updated_on></m2m_sp_ng_pro_sp_widget></record_update>]]></payload>
+        <payload_hash>2080207366</payload_hash>
+        <record_name>mhSkillMatrixService.Copy of Manager Hub Skill Filter</record_name>
+        <reverted_from/>
+        <source>3d6e573c93153110f7c692135489189d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-27 05:25:36</sys_created_on>
+        <sys_id>d27ec69993297110f7c69213548918c3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ad5198d6d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-27 05:25:36</sys_updated_on>
+        <type>Angular Providers</type>
+        <update_guid>1a7ec69967297110a422c17b21ef5bc2</update_guid>
+        <update_guid_history>1a7ec69967297110a422c17b21ef5bc2:2080207366</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="mhSkillMatrixService.Copy of Manager Hub Skill Filter">41b3872593213110f7c69213548918a7</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 03:56:39</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_ng_pro_sp_widget">m2m_sp_ng_pro_sp_widget</sys_db_object>
+        <sys_id>10b99d9b96cb4c27be06bffe66399bc1</sys_id>
+        <sys_metadata>5e7ec69993297110f7c69213548918bf</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mhSkillMatrixService.Copy of Manager Hub Skill Filter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_5e7ec69993297110f7c69213548918bf</sys_update_name>
+        <sys_update_version display_value="m2m_sp_ng_pro_sp_widget_5e7ec69993297110f7c69213548918bf">d27ec69993297110f7c69213548918c3</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 03:56:39</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
