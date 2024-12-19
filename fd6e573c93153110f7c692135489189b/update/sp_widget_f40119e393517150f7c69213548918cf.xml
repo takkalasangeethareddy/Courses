@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+	var c = this;
+  c.divClicked = function(type,url,html){
+		 console.log(type);
+		if(type == "External URL"){
+			window.open(url, '_blank');
+			
+		} else {
+			alert("This is html, would you like to open in new tab?");
+		}
+	};
+	
+		
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.card{
+   
+  padding: 16px; 
+  background: white;
+  border-radius: 4px;
+  border: 1px #DADDE2 solid;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: flex-start; 
+  gap: 12px;
+  display: inline-flex
+}
+.head{
+  align-self: stretch; 
+  justify-content: space-between; 
+  align-items: center; 
+  display: inline-flex;
+  .first{
+    justify-content: flex-start;
+    align-items: flex-start; 
+    gap: 4px; 
+    display: flex;
+    .hatIcon{
+      text-align: center; 
+      color: #181A1F;
+      font-size: 12px; 
+      font-family: FontAwesome; 
+      font-weight: 400; 
+      line-height: 18px; 
+      word-wrap: break-word;
+    }
+    .course{
+      justify-content: flex-start; 
+      align-items: center; 
+      gap: 4px; 
+      display: flex;
+      .courseText{
+        color: #181A1F; 
+        font-size: 12px; 
+        font-family: Lato; 
+        font-weight: 400; 
+        line-height: 17.10px; 
+        word-wrap: break-word;
+      }
+    }
+  }   
+  .second{
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 16px; 
+    display: flex;
+    .featured{
+      padding-top: 2.40px;
+      padding-bottom: 3.60px; 
+      padding-left: 7.20px;
+      padding-right: 7.20px; 
+      background: #CBE9FC; 
+      border-radius: 3px; 
+      justify-content: center;
+      align-items: center; 
+      display: flex;
+      .featuredText{
+        color: #181A1E; 
+        font-size: 12px;
+        font-family: Lato; 
+        font-weight: 700; 
+        line-height: 12px; 
+        word-wrap: break-word;
+      }
+    }
+    .menuBtn{
+      text-align: center; 
+      color: #181A1F; 
+      font-size: 14px; 
+      font-family: FontAwesome;
+      font-weight: 400; 
+      line-height: 20px; 
+      word-wrap: break-word;
+    }
+  }
+}
+.innercard{
+  align-self: stretch; 
+  height: 100px; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: flex-start; 
+  gap: 8px; 
+  display: flex;
+  width: 22rem;
+  .title{
+
+    align-self: stretch;
+    height: 26px; 
+    color: #181A1F; 
+    font-size: 16px; 
+    font-family: Lato; 
+    font-weight: 600; 
+    line-height: 22.90px; 
+    word-wrap: break-word;
+    overflow:  hidden;
+  }
+  .description{
+    width: 226px; 
+    color: #656E81; 
+    height: 50px;
+    font-size: 14px; 
+    font-family: Lato; 
+    font-weight: 400; 
+    line-height: 20px; 
+    word-wrap: break-word;
+    overflow:  hidden;
+
+  }
+
+  .duration{
+    color: #474D5A; 
+    font-size: 12px; 
+    font-family: Lato; 
+    font-weight: 600; 
+    line-height: 17.10px;
+    word-wrap: break-word;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>courses</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Courses</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	 data.name = options.name;
+	 data.description = options.description;
+	 data.duration = options.duration;
+	 data.type = options.type;
+	 data.html = options.html;
+	 data.url = options.url;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 14:27:41</sys_created_on>
+        <sys_id>f40119e393517150f7c69213548918cf</sys_id>
+        <sys_mod_count>225</sys_mod_count>
+        <sys_name>Courses</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_f40119e393517150f7c69213548918cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-19 06:32:39</sys_updated_on>
+        <template><![CDATA[<div class="card" ng-click="c.divClicked(c.data.type,c.data.url,c.data.html)">
+  <div class="head">
+    <div class="first">
+      <div class="hatIcon"></div>
+      <div class="course">
+        <div class="courseText" for="course">Course </div>
+      </div>
+    </div>
+    <div class="second">
+      <div class="featured" >
+        <div class="featuredText" >Featured </div>
+      </div>
+      <div class="menuBtn"></div>
+    </div>
+  </div>
+  <div class="innercard" >
+    <div class="title">
+      {{ c.data.name }} 
+    </div>
+    <div class="description">
+      {{ c.data.description}} 
+    </div>
+    <div class="duration">
+      Pluralsight · {{ c.data.duration }} 
+    </div>
+  </div>
+</div>
+
+
+ ]]></template>
+    </sp_widget>
+</record_update>

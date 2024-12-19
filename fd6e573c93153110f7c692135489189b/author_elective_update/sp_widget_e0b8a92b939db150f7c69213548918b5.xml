@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script/>
+        <controller_as>c</controller_as>
+        <css>.level{
+  height: 32px; 
+  padding-left: 16px; 
+  padding-right: 16px; 
+  padding-top: 6px; 
+  padding-bottom: 6px; 
+  background: white; 
+  border-radius: 4px;
+  border: 1px #4F52BD solid; 
+  justify-content: flex-start; 
+  align-items: center; 
+  display: inline-flex;
+  text-align: center; 
+  color: #4F52BD; 
+  font-size: 16px;
+  font-family: Lato; 
+  font-weight: 600; 
+  line-height: 20px; 
+  word-wrap; break-word;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>filter</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Filter</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	data.notes = [];
+	var noteGR = new GlideRecord('sys_choice');
+	noteGR.addEncodedQuery("nameLIKEcourse^elementSTARTSWITHlevel");
+	noteGR.query();
+	while(noteGR.next())
+	{
+		var noteObj = {};
+		noteObj.level = noteGR.getDisplayValue('value');
+		data.notes.push(noteObj);
+	}  
+  console.log(data.notes);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-21 16:11:10</sys_created_on>
+        <sys_id>e0b8a92b939db150f7c69213548918b5</sys_id>
+        <sys_mod_count>71</sys_mod_count>
+        <sys_name>Filter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_widget_e0b8a92b939db150f7c69213548918b5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 04:47:38</sys_updated_on>
+        <template><![CDATA[<select class="level" ng-model="c.data.level" id="Level" (change)="onSelected(c.data.value)" >
+  <option value="">Levels</option>
+  <option ng-repeat="d in  c.data.notes" value="{{ d.level}}">{{ d.level}}</option>
+</select>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_widget_e0b8a92b939db150f7c69213548918b5</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script/&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.level{
+  height: 32px; 
+  padding-left: 16px; 
+  padding-right: 16px; 
+  padding-top: 6px; 
+  padding-bottom: 6px; 
+  background: white; 
+  border-radius: 4px;
+  border: 1px #4F52BD solid; 
+  justify-content: flex-start; 
+  align-items: center; 
+  display: inline-flex;
+  text-align: center; 
+  color: #4F52BD; 
+  font-size: 16px;
+  font-family: Lato; 
+  font-weight: 600; 
+  line-height: 20px; 
+  word-wrap; break-word;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;filter&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Filter&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	data.notes = [];
+	var noteGR = new GlideRecord('sys_choice');
+	noteGR.addEncodedQuery("nameLIKEcourse^elementSTARTSWITHlevel");
+	noteGR.query();
+	while(noteGR.next())
+	{
+		var noteObj = {};
+		noteObj.level = noteGR.getDisplayValue('value');
+		data.notes.push(noteObj);
+	}  
+  console.log(data.notes);
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-09-21 16:11:10&lt;/sys_created_on&gt;&lt;sys_id&gt;e0b8a92b939db150f7c69213548918b5&lt;/sys_id&gt;&lt;sys_mod_count&gt;71&lt;/sys_mod_count&gt;&lt;sys_name&gt;Filter&lt;/sys_name&gt;&lt;sys_package display_value="LEARNING COURSES" source="sn_learning_course"&gt;fd6e573c93153110f7c692135489189b&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="LEARNING COURSES"&gt;fd6e573c93153110f7c692135489189b&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_e0b8a92b939db150f7c69213548918b5&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-09-28 04:47:38&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;select class="level" ng-model="c.data.level" id="Level" (change)="onSelected(c.data.value)" &gt;
+  &lt;option value=""&gt;Levels&lt;/option&gt;
+  &lt;option ng-repeat="d in  c.data.notes" value="{{ d.level}}"&gt;{{ d.level}}&lt;/option&gt;
+&lt;/select&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>51519422</payload_hash>
+        <record_name>Filter</record_name>
+        <reverted_from/>
+        <source>ccf7402593213110f7c69213548918ae</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 04:47:38</sys_created_on>
+        <sys_id>4c6f83ad93213110f7c69213548918b8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ada1d28190000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 04:47:38</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>046f83ad782131100c37cd22a9911db8</update_guid>
+        <update_guid_history>046f83ad782131100c37cd22a9911db8:51519422,fa7e0b6d9e213110f2a93d9942b73e9a:-916865993,894300650c2531106b098ea141295d39:595780166,a86280256f25311023d0c17f5e589070:-1322775108,6a328025d52531107893f6c6e8823f55:1853463013,812240e16425311008c0712a3cb5f74d:985443978,5081c4a1912531102f4bd490d5f18374:2139049321,d2e0c4a12125311001f6fa013fad7f7d:868886870,0d4f361d7b613110c912a404522edbb0:-1130256439,165ab25947613110ed0d512081490edc:-697583473,c11abe19186131109ffa2fbaa735079a:180790285,a10a36199d6131102c58828187f2f4b4:702462957,8437f65533613110d190b678b43f4dbb:180790285,6a27b25522613110df18410483646537:797376080,58c672552d6131100ba1e672b98e26c6:180790285,b3a67e1520613110e2977dfa0abb2248:-163856632,5795fed163613110fd1da08409e1e182:999547083,b145fad17e6131105f2618acf373c9ee:886722693,ddb4b6d1526131103a18b8cc96e3b7d7:-1353892560,3c5472d1c56131107d8a81c34550d4cb:1119165306,0c3432d1e76131103ff970636b7e2625:921567858,89043e91ea6131109efd4cc5afb2b6d0:-1860394404,50f33e917261311033a23916a1b8d0b3:300144347,8e93b691e3613110b4a2530b42e6d7c6:226458802,e583b2919a613110b031cdeaca76c7f7:1550710535,4029ae11e66131106144b018f7cba48a:-1457869017,39192e11da6131106ee8005c20a8d4b5:-1305816739,6df8aa113f613110c52444d10235d05f:-131944973,4ec8aa11cf61311028f4c1bde315d302:-1420367341,95b82a11d66131102d0006598b6f445c:-131944973,1f48a211cf6131107eaf7f75320883cb:498887677,f6386211b5613110a10c5a40b4810b2f:877514105,a218221128613110476a88105c8a9eba:-1852272928,36a1aa19162131100e40684bc0fa7d6d:-560851639,67fe1295c52131103ea8149ce1077bec:1682407355,28cede554121311008932cabc79f25da:1734588073,79aede551821311038e14ff1521ed589:-1978197589,3cae9a5537213110ad888bae69d7ebae:2139149098,808e5e55a521311033f087c7835f27bb:444064877,e47e5a558021311011771dc99ec46253:538241518,ce725a5d22297110c5b3ab7a2ccaeaaa:-369483041,0f32d65d3c297110d97e9854bf6d207e:-1708578010,1d12d65dba297110b63ff3a6bbce5b74:1447028912,9020de992c2971106b89d2add9bf1d8e:1897216552,bf2f42d91429711048429a37d502846b:-453344909,d44806552729711044a50c8c000cab6f:-1508688638,62d78255ee297110253cc803293851c1:-283551954,b3b782553e297110bf3ca3ac9014f4b8:612828980,c687ce15ab2971101ebf4ab7ef31c4cf:1333740100,0ed68615a529711099c8a14a17d98087:976101192,40d60a91b2297110ae43803ba396a640:1232895199,6d524a113929711007188de3954fa9c7:976101192,bbf18eddd0e571104a57b63be13a3d2b:-1972070827,01c794773f113110b1c4b2f88bc5cf8f:903780929,7ea7547762113110d9936f953e331474:958871534,e197547759113110f4be6371a002986c:1179304174,8fbce5e723d5f15084deef6722db2792:1851001680,e4bc692f5115f1507396dc9e9a211e40:-2143197336,52aca16fb395f1509426f89eeac516de:-492083137,486ca96b5d95f1509e570fc7173fe0dd:-482652593,995c252b1f55f150d9f612c4b3a64e78:-1615609118,7d4ca96bcd95f150eee38d1d47286ed5:190522426,797be92b56d1f1504bb5c17f92c8c5e2:1356254684,f8eaa967bfd1f150c4ae1bf1e732de11:557859416,9bca696752d1f150fb566e520e459a55:-1643131907,855a25afd751f1500470fe6794b8e2e8:-602524166,af4a65af5e51f15053ff10784ea9d501:-128623290,c92ae52f619db15004a7dd3adbadffa9:1685356762,c51aedebf851f15087e0b0f9e8cf5fdc:1688303165,d2d8212fb79db1508756569788ba08f2:-734413658,eeb8212fe59db150af36340134d43fea:294514330,ecb8a92b289db15084c725e7d91a91b8:-631460154</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Filter">b656047993a13110f7c69213548918a4</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 08:47:51</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>09f90d8dfee5460080ba7252bd128a90</sys_id>
+        <sys_metadata>e0b8a92b939db150f7c69213548918b5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Filter</sys_name>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sp_widget_e0b8a92b939db150f7c69213548918b5</sys_update_name>
+        <sys_update_version display_value="sp_widget_e0b8a92b939db150f7c69213548918b5">4c6f83ad93213110f7c69213548918b8</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 08:47:51</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">078c814993a17110f7c692135489185a</sp_column>
+        <sp_widget display_value="NewCoursewidget">69a5b93993653110f7c692135489188e</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 17:11:57</sys_created_on>
+        <sys_id>87b9b13d93653110f7c692135489184a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_update_name>sp_instance_87b9b13d93653110f7c692135489184a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 17:11:57</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=87b9b13d93653110f7c692135489184a"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</application>
+        <file_path/>
+        <instance_id>8d14605c70013110a258ecc45dec8fa6</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_instance_87b9b13d93653110f7c692135489184a</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="1">078c814993a17110f7c692135489185a</sp_column><sp_widget display_value="NewCoursewidget">69a5b93993653110f7c692135489188e</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-09-28 17:11:57</sys_created_on><sys_id>87b9b13d93653110f7c692135489184a</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package><sys_policy/><sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope><sys_update_name>sp_instance_87b9b13d93653110f7c692135489184a</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-09-28 17:11:57</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=87b9b13d93653110f7c692135489184a"/></record_update>]]></payload>
+        <payload_hash>-715835403</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>ccf7402593213110f7c69213548918ae</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-28 17:11:57</sys_created_on>
+        <sys_id>0fb9b13d93653110f7c692135489184d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18adcc6981c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-28 17:11:57</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>43b9b13da1653110bf69fac88e6a414d</update_guid>
+        <update_guid_history>43b9b13da1653110bf69fac88e6a414d:-715835403</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">b82884ce93653110f7c69213548918ae</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-29 03:34:07</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>19479ed732cd46318c985015b8655ff1</sys_id>
+        <sys_metadata>87b9b13d93653110f7c692135489184a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LEARNING COURSES" source="sn_learning_course">fd6e573c93153110f7c692135489189b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LEARNING COURSES">fd6e573c93153110f7c692135489189b</sys_scope>
+        <sys_scope_delete display_value="">1a3779aeab964a0987865615b51071f1</sys_scope_delete>
+        <sys_update_name>sp_instance_87b9b13d93653110f7c692135489184a</sys_update_name>
+        <sys_update_version display_value="sp_instance_87b9b13d93653110f7c692135489184a">0fb9b13d93653110f7c692135489184d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-29 03:34:07</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
